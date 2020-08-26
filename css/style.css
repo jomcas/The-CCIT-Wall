@@ -1,0 +1,74 @@
+html {
+    position: relative;
+    min-height: 100%;
+    height: 100px;
+  }
+  
+  body {
+    height: 100%;
+    margin-bottom: 60px; /* Margin bottom by footer height */
+  }
+  
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+  }
+  
+  
+  .header {
+    padding-top: 0;
+  }
+  
+  section {
+    padding: 150px 0;
+  }
+  
+  nav .navbar-nav .nav-link,
+  nav .navbar-brand {
+     color: #000;
+  }
+  
+  .home-left {
+    background-color: #f8f9fa;
+    height: 100%;
+  }
+  
+  
+  .brand-title {
+    
+    padding-top: 200px;
+  }
+  
+  .brand-list {
+    padding-left: 200px;
+    padding-top: 75px;
+  }
+  
+  .brand-subtitle {
+    padding-left: 220px;
+    padding-top: 50px;
+  }
+  
+  .login, .register {
+    padding-left: 250px;
+    padding-top: 75px;
+  }
+  
+  .register {
+    display: none;
+  }
+  
+  .footer-text {
+    padding-left: 350px;
+  }
+  
+  /* .footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  } */
+  
+  
