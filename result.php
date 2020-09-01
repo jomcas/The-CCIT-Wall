@@ -8,7 +8,9 @@ include_once "connections/connection.php";
 
 $con = connection();
 
-$sql = "SELECT * FROM users ORDER BY userID";
+$con = connection();
+$search = $_GET['search'];
+$sql = "SELECT * FROM users WHERE name LIKE '$search%' OR email LIKE '$search%' ORDER BY userID";
 $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
 
@@ -98,6 +100,7 @@ if(isset($_SESSION['UserLogin'])) {
                 <?php } while ($row = $users->fetch_assoc()) ?>
             </tbody>
         </table>
+        <a id="loginBtn" class="btn btn-link float-left" href="/ccitforum/"> View All User's List. </a>
         <div>
 </body>
 <html>

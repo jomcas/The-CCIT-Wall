@@ -18,7 +18,7 @@ if(isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $sql = "INSERT INTO `users` (`name`,`email`,`password`) VALUES ('$name','$email','$password')";
+    $sql = "INSERT INTO `users` (`name`,`email`,`password`,`access`) VALUES ('$name','$email','$password', 'user')";
 
     $con->query($sql) or die($con->error);
 

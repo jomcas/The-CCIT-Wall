@@ -16,7 +16,10 @@ html {
     height: 60px; /* Set the fixed height of the footer here */
     line-height: 60px; /* Vertically center the text there */
   }
-  
+   
+  #view {
+    padding-left: 250px;
+  }
   
   .header {
     padding-top: 0;
@@ -36,9 +39,7 @@ html {
     height: 100%;
   }
   
-  
-  .brand-title {
-    
+  .brand-title {  
     padding-top: 200px;
   }
   
@@ -60,7 +61,8 @@ html {
   .register {
     display: none;
   }
-  
+
+
   .footer-text {
     padding-left: 350px;
   }
