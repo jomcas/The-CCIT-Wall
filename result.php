@@ -35,12 +35,12 @@ if(isset($_SESSION['UserLogin'])) {
 </head>
 
 <body>
-<a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+
     <div class="container">
 
         <h1 class="text-center"> CCIT Forum Admin </h1>
         <h3 class="text-center"> Users Account </h3>
-
+        <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
         <?php if($_SESSION['Access'] == "admin") { ?>
         <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
         <?php } ?>

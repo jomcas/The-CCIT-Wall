@@ -46,7 +46,7 @@ if(isset($_POST['submit'])) {
             <h3 class="text-center">Add New User </h1>
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="" method="post" onSubmit="return confirm('Do you really want to add this user?'">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="name" class="form-control" name="name">
