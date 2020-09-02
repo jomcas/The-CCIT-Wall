@@ -10,9 +10,7 @@ $con = connection();
 
 if(isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
    echo "Welcome ". $_SESSION['UserLogin'];
-} else {
-    echo header("Location: index.php");
-}
+} 
 
 $con = connection();
 
@@ -26,14 +24,17 @@ if(isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $access = $_POST['access'];
+    if($_POST['access'] == "") {
+        $access = "user";
+    } else {
+        $access = $_POST['access'];
+    }
     $sql = "UPDATE `users` SET `name` = '$name', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
 
     $con->query($sql) or die($con->error);
 
     echo header("Location: index.php");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -51,40 +52,47 @@ if(isset($_POST['submit'])) {
     <div class="container">
 
         <div class="register">
-           <h1 class="text-center"> CCIT Forum Admin </h1>
+            <h1 class="text-center"> CCIT Forum Admin </h1>
             <h3 class="text-center">Edit User </h1>
-            <div class="card">
-                <div class="card-body">
-                    <form action="" method="post" onSubmit="return confirm('Do you really want to update this user')">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="name" class="form-control" name="name" value="<?php echo $row['name']?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" value="<?php echo $row['email']?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" value="<?php echo $row['password']?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Access</label>
-                            <select name="access" class="form-control">
-                                <?php if($row['access'] == "user") {  ?>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="post"
+                            onSubmit="return confirm('Do you really want to update this user')">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="name" class="form-control" name="name" value="<?php echo $row['name']?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email"
+                                    value="<?php echo $row['email']?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password"
+                                    value="<?php echo $row['password']?>">
+                            </div>
+                            <!-- Access -->
+                            <?php if($_SESSION['Access'] == "admin") { ?>
+                            <div class="form-group">
+                                <label for="password">Access</label>
+                                <select name="access" class="form-control">
+                                    <?php if($row['access'] == "user") {  ?>
                                     <option value="user" selected>User</option>
                                     <option value="admin">Admin</option>
-                                <?php } else { ?>
+                                    <?php } else { ?>
                                     <option value="user">User</option>
                                     <option value="admin" selected>Admin</option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <input type="submit" name="submit" class="btn btn-success float-right" value="Save Changes"></input>
-                    </form>
-                     <a id="loginBtn" class="btn btn-link" href="/ccitforum/"> Back to User's List. </a>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <?php } ?>
+                            <input type="submit" name="submit" class="btn btn-success float-right"
+                                value="Save Changes"></input>
+                        </form>
+                        <a id="loginBtn" class="btn btn-link" href="/ccitforum/accounts.php"> Back to User's List. </a>
+                    </div>
                 </div>
-            </div>
         </div>
 
     </div>
