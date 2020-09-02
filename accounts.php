@@ -44,12 +44,10 @@ if(isset($_SESSION['UserLogin'])) {
         <h1> Accounts </h1>
         <small> View All Users.</small>
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-info"><a class="text-white text-decoration-none"
-                    href="/applicants">News Feed</a></button>
+            <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
             <button type="button" class="btn btn-primary"><a class="text-white text-decoration-none"
-                    href="/applicants-pending">My Posts</a></button>
-            <button type="button" class="btn btn-success"><a class="text-white text-decoration-none"
-                    href="/applicants-accepted">Accounts</a></button>
+                    href="/applicants-pending">My Posts</a></button>           
+            <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
             <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
         </div>
         <hr>

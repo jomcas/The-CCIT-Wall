@@ -40,7 +40,21 @@ if(isset($_SESSION['UserLogin'])) {
 
         <h1 class="text-center"> CCIT Forum Admin </h1>
         <h3 class="text-center"> Users Account </h3>
-        <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+        <!-- Button Group User -->
+        <h1> The CCIT Wall </h1>
+        <small> Create and edit posts. Read posts from other users.</small>
+        <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
+            <button type="button" class="btn btn-primary"><a class="text-white text-decoration-none"
+                    href="/applicants-pending">My Posts</a></button>
+            <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
+            <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+        </div>
+        <hr>
+        
+        <!-- Edit Account Link -->
+        <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account. </a>
+
         <?php if($_SESSION['Access'] == "admin") { ?>
         <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
         <?php } ?>
@@ -100,7 +114,7 @@ if(isset($_SESSION['UserLogin'])) {
                 <?php } while ($row = $users->fetch_assoc()) ?>
             </tbody>
         </table>
-        <a id="loginBtn" class="btn btn-link float-left" href="/ccitforum/"> View All User's List. </a>
+        <a id="loginBtn" class="btn btn-link float-left" href="/ccitforum/accounts.php"> View All User's List. </a>
         <div>
 </body>
 <html>

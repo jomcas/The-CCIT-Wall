@@ -39,20 +39,17 @@ if(isset($_SESSION['UserLogin'])) {
         <h1 class="text-center"> The CCIT Wall </h1>
         <h3 class="text-center"> Homepage </h3>
 
+        <!-- Button Group User -->
         <h1> The CCIT Wall </h1>
         <small> Create and edit posts. Read posts from other users.</small>
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-info"><a class="text-white text-decoration-none"
-                    href="/applicants">News Feed</a></button>
+            <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
             <button type="button" class="btn btn-primary"><a class="text-white text-decoration-none"
                     href="/applicants-pending">My Posts</a></button>
             <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
             <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
         </div>
         <hr>
-
-
-
    
         <?php if($_SESSION['Access'] == "admin") { ?>
         <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
@@ -69,51 +66,7 @@ if(isset($_SESSION['UserLogin'])) {
             </div>
         </form>
 
-        <!-- Users Table -->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <?php if($_SESSION['Access'] == "admin") { ?>
-                    <th scope="col">Password</th>
-                    <th scope="col">Access</th>
-                    <th scope="col">View</th>
-                    <th scope="col">Update</th>
-                    <th scope="col">Delete</th>
-                    <?php } ?>
-            </thead>
-
-            <tbody>
-                <?php do {?>
-                <tr>
-                    <td> <b> <?php echo $row['userID'];?> </b> </td>
-                    <td> <?php echo $row['name'];?> </td>
-                    <td> <?php echo $row['email'];?> </td>
-                    <?php if($_SESSION['Access'] == "admin") { ?>
-                    <td> <?php echo $row['password'];?> </td>
-                    <td> <?php echo $row['access'];?> </td>
-                    <td>
-                        <a class="view btn btn-info btn-sm" name="view"
-                            href="/ccitforum/details.php?ID=<?php echo $row['userID']?>">View</a>
-                    </td>
-                    <td>
-                        <a class="view btn btn-warning btn-sm" name="update"
-                            href="/ccitforum/update.php?ID=<?php echo $row['userID']?>">Update</a>
-                    </td>
-                    <td>
-                        <form action="delete.php" onSubmit="return confirm('Do you really want to delete this user?')"
-                            method="post">
-                            <button type="submit" class="view btn btn-danger btn-sm" name="delete">Delete</button>
-                            <input type="hidden" class="<style>hidden" name="ID" value="<?php echo $row['userID']?>">
-                        </form>
-                    </td>
-                    <?php } ?>
-                </tr>
-                <?php } while ($row = $users->fetch_assoc()) ?>
-            </tbody>
-        </table>
+       
         <div>
 </body>
 <html>

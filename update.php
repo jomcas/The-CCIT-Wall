@@ -90,7 +90,7 @@ if(isset($_POST['submit'])) {
                             <input type="submit" name="submit" class="btn btn-success float-right"
                                 value="Save Changes"></input>
                         </form>
-                        <a id="loginBtn" class="btn btn-link" href="/ccitforum/"> Back to User's List. </a>
+                        <a id="loginBtn" class="btn btn-link" href="/ccitforum/accounts.php"> Back to User's List. </a>
                     </div>
                 </div>
         </div>
