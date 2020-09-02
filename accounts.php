@@ -8,6 +8,7 @@ include_once "connections/connection.php";
 
 $con = connection();
 
+$id = $_SESSION['ID'];
 $sql = "SELECT * FROM users ORDER BY userID";
 $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
@@ -18,6 +19,7 @@ if(!isset($_SESSION['UserLogin'])) {
 
 if(isset($_SESSION['UserLogin'])) {
     echo "<div class='text-center'> Welcome ".$_SESSION['UserLogin']." Role: ".$_SESSION['Access']."</div>";
+    echo "<div class='text-center'> ID:".$_SESSION['ID']."</div>";
 } else {
     echo "Welcome guest!";
 }
@@ -39,14 +41,15 @@ if(isset($_SESSION['UserLogin'])) {
         <h1 class="text-center"> The CCIT Wall </h1>
         <h3 class="text-center"> Homepage </h3>
 
-        <h1> The CCIT Wall </h1>
-        <small> Create and edit posts. Read posts from other users.</small>
+        <h1> Accounts </h1>
+        <small> View All Users.</small>
         <div class="btn-group float-right" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-info"><a class="text-white text-decoration-none"
                     href="/applicants">News Feed</a></button>
             <button type="button" class="btn btn-primary"><a class="text-white text-decoration-none"
                     href="/applicants-pending">My Posts</a></button>
-            <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
+            <button type="button" class="btn btn-success"><a class="text-white text-decoration-none"
+                    href="/applicants-accepted">Accounts</a></button>
             <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
         </div>
         <hr>
@@ -57,7 +60,10 @@ if(isset($_SESSION['UserLogin'])) {
         <?php if($_SESSION['Access'] == "admin") { ?>
         <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
         <?php } ?>
-
+        
+        <!-- Edit Account Link -->
+        <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account. </a>
+        
         <!-- Search Bar -->
         <form action="result.php" method="get">
             <div class="input-group mb-3">
@@ -68,7 +74,7 @@ if(isset($_SESSION['UserLogin'])) {
                 </div>
             </div>
         </form>
-
+        
         <!-- Users Table -->
         <table class="table table-striped">
             <thead>
@@ -115,5 +121,6 @@ if(isset($_SESSION['UserLogin'])) {
             </tbody>
         </table>
         <div>
+       
 </body>
 <html>
