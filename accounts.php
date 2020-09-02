@@ -8,9 +8,8 @@ include_once "connections/connection.php";
 
 $con = connection();
 
-$con = connection();
-$search = $_GET['search'];
-$sql = "SELECT * FROM users WHERE name LIKE '$search%' OR email LIKE '$search%' ORDER BY userID";
+$id = $_SESSION['ID'];
+$sql = "SELECT * FROM users ORDER BY userID";
 $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
 
@@ -20,6 +19,7 @@ if(!isset($_SESSION['UserLogin'])) {
 
 if(isset($_SESSION['UserLogin'])) {
     echo "<div class='text-center'> Welcome ".$_SESSION['UserLogin']." Role: ".$_SESSION['Access']."</div>";
+    echo "<div class='text-center'> ID:".$_SESSION['ID']."</div>";
 } else {
     echo "Welcome guest!";
 }
@@ -38,37 +38,41 @@ if(isset($_SESSION['UserLogin'])) {
 
     <div class="container">
 
-        <h1 class="text-center"> CCIT Forum Admin </h1>
-        <h3 class="text-center"> Users Account </h3>
-        <!-- Button Group User -->
-        <h1> The CCIT Wall </h1>
-        <small> Create and edit posts. Read posts from other users.</small>
+        <h1 class="text-center"> The CCIT Wall </h1>
+        <h3 class="text-center"> Homepage </h3>
+
+        <h1> Accounts </h1>
+        <small> View All Users.</small>
         <div class="btn-group float-right" role="group" aria-label="Basic example">
             <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
             <button type="button" class="btn btn-primary"><a class="text-white text-decoration-none"
-                    href="/applicants-pending">My Posts</a></button>
+                    href="/applicants-pending">My Posts</a></button>           
             <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
             <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
         </div>
         <hr>
-        
-        <!-- Edit Account Link -->
-        <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account. </a>
 
+
+
+   
         <?php if($_SESSION['Access'] == "admin") { ?>
         <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
         <?php } ?>
         
+        <!-- Edit Account Link -->
+        <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account. </a>
+        
         <!-- Search Bar -->
         <form action="result.php" method="get">
             <div class="input-group mb-3">
-            <input type="text" name="search" id="search" class="form-control" placeholder="Search for user's name or email" autocomplete="off">
-            <div class="input-group-append float-right">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </div>
+                <input type="text" name="search" id="search" class="form-control"
+                    placeholder="Search for user's name or email" autocomplete="off">
+                <div class="input-group-append float-right">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
             </div>
         </form>
-
+        
         <!-- Users Table -->
         <table class="table table-striped">
             <thead>
@@ -114,7 +118,7 @@ if(isset($_SESSION['UserLogin'])) {
                 <?php } while ($row = $users->fetch_assoc()) ?>
             </tbody>
         </table>
-        <a id="loginBtn" class="btn btn-link float-left" href="/ccitforum/accounts.php"> View All User's List. </a>
         <div>
+       
 </body>
 <html>

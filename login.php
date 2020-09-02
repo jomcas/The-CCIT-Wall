@@ -18,6 +18,7 @@ if(isset($_POST['login'])) {
     if ($total > 0) {
         $_SESSION['UserLogin'] = $row['email'];
         $_SESSION['Access'] = $row['access'];
+        $_SESSION['ID'] = $row['userID'];
         echo header("Location: index.php");    
     } else {
         echo "Please try again!";
