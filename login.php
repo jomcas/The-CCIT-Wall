@@ -7,6 +7,7 @@ include_once "connections/connection.php";
 $con = connection();
 
 
+// Login POST Action
 if(isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -19,12 +20,14 @@ if(isset($_POST['login'])) {
         $_SESSION['UserLogin'] = $row['email'];
         $_SESSION['Access'] = $row['access'];
         $_SESSION['ID'] = $row['userID'];
-        echo header("Location: index.php");    
+        echo header("Location: home.php");    
     } else {
         echo "Please try again!";
     }
+    $con->close();
 }
 
+// Register POST Action
 if(isset($_POST['register'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -39,7 +42,16 @@ if(isset($_POST['register'])) {
     } else {
         $insertSql = "INSERT INTO `users` (`name`,`email`,`password`,`access`) VALUES ('$name','$email','$password','user')";
         $con->query($insertSql) or die($con->error);
+        $last_id = $con->insert_id;
+        echo "Umabot Dito";
+        $_SESSION['UserLogin'] = $email;
+        $_SESSION['Access'] = "user";
+        $_SESSION['ID'] = $last_id;
+        echo header("Location: home.php");  
+        echo "Dito din";
     }
+
+    $con->close();
 }
 
 ?>
@@ -47,123 +59,128 @@ if(isset($_POST['register'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
 
-</head>
+    </head>
 
-<body>
-    <div class="container-fluid">
+    <body>
+        <div class="container-fluid">   
+            <div class="row">
 
-        <div class="row">
-            <div class="col-6 home-left">
-                <h1 class="brand-title text-center "> Welcome To <br> The CCIT Forum.</h1>
-                <div class="brand-list">
-                    <ul>
-                        <li>Share your thoughts!</li>
-                        <li>Communicate with other CCIT students!</li>
-                        <li>Be as one!</li>
-                    </ul>
-                </div>
-
-                <div class="brand-subtitle">
-                    <h4>"This is the subtitle put it here."</h3>
-                </div>
-
-                <br><br><br>
-            </div>
-
-            <div class="col-6 home-right">
-
-
-                <div class="row">
-                    <div class="login">
-                        <h5 class="text-muted text-center">National University - Manila</h5>
-                        <p class="text-muted">College of Computing and Information Technologies</p>
-                        <h1 class="text-center">Sign In.</h1>
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Makes POST request to /login route -->
-                                <form action="" method="POST">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" name="password">
-                                    </div>
-                                    <input type="submit" name="login" class="btn btn-primary float-right"
-                                        value="Sign In"></input>
-                                </form>
-                                <p> Not yet a member? <button id="registerBtn" class="btn btn-link"> Sign Up Now!
-                                    </button></p>
-                            </div>
-                        </div>
+                <!-- BRAND SECTION -->
+                <div class="col-6 home-left">
+                    <h1 class="brand-title text-center "> Welcome To <br> The CCIT Forum.</h1>
+                    <div class="brand-list">
+                        <ul>
+                            <li>Share your thoughts!</li>
+                            <li>Communicate with other CCIT students!</li>
+                            <li>Be as one!</li>
+                        </ul>
                     </div>
 
-                    <div class="register">
-                        <h5 class="text-muted text-center">National University - Manila</h5>
-                        <p class="text-muted">College of Computing and Information Technologies</p>
-                        <h1 class="text-center">Sign Up.</h1>
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Makes POST request to /login route -->
-                                <form action="" method="POST">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="name" class="form-control" name="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" name="password">
-                                    </div>
-                                    <input type="submit" name="register" class="btn btn-primary float-right"
-                                        value="Sign Up"></input>
-                                </form>
-                                <p> Already a member? <button id="loginBtn" class="btn btn-link"> Sign In Here.                                    </button></p>
+                    <div class="brand-subtitle">
+                        <h4>"This is the subtitle put it here."</h3>
+                    </div>
+
+                    <br><br><br>
+                </div>
+            
+                <div class="col-6 home-right">
+                    <!-- BRAND SECTION -->
+                    <div class="row">
+
+                        <!-- Login Section -->
+                        <div class="login">
+                            <h5 class="text-muted text-center">National University - Manila</h5>
+                            <p class="text-muted">College of Computing and Information Technologies</p>
+                            <h1 class="text-center">Sign In.</h1>
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="" method="POST">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" name="password">
+                                        </div>
+                                        <input type="submit" name="login" class="btn btn-primary float-right"
+                                            value="Sign In"></input>
+                                    </form>
+                                    <p> Not yet a member? <button id="registerBtn" class="btn btn-link"> Sign Up Now!
+                                        </button></p>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Register Section -->
+                        <div class="register">
+                            <h5 class="text-muted text-center">National University - Manila</h5>
+                            <p class="text-muted">College of Computing and Information Technologies</p>
+                            <h1 class="text-center">Sign Up.</h1>
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="" method="POST">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="name" class="form-control" name="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" name="password">
+                                        </div>
+                                        <input type="submit" name="register" class="btn btn-primary float-right"
+                                            value="Sign Up"></input>
+                                    </form>
+                                    <p> Already a member? <button id="loginBtn" class="btn btn-link"> Sign In Here.                                    </button></p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer class="footer bg-light fixed-bottom">
-        <div class="container">
-            <span class="text-muted text-center footer-text"> The College of Computing and Information Technolgies
-                Forum</span>
-        </div>
-    </footer>
+        <!-- Footer Section -->
+        <footer class="footer bg-light fixed-bottom">
+            <div class="container">
+                <span class="text-muted text-center footer-text"> The College of Computing and Information Technolgies
+                    Forum</span>
+            </div>
+        </footer>
 
 
 
-    <!-- JQuery library -->
-    <script src="js/jquery/jquery.min.js"></script>
-    <script>
-        $(".register").hide();
+        <!-- JQuery library -->
+        <script src="js/jquery/jquery.min.js"></script>
 
-        $("#registerBtn").click(function () {
-            $(".login").hide();
-            $(".register").show();
-            console.log("anyare");
-        })
-
-        $("#loginBtn").click(function () {
+        <!-- JQuery Script -->
+        <script>
             $(".register").hide();
-            $(".login").show();
-            console.log("anyare");
-        })
-    </script>
-</body>
+
+            $("#registerBtn").click(function () {
+                $(".login").hide();
+                $(".register").show();
+                console.log("anyare");
+            })
+
+            $("#loginBtn").click(function () {
+                $(".register").hide();
+                $(".login").show();
+                console.log("anyare");
+            })
+        </script>
+    </body>
 
 </html>
