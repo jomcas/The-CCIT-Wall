@@ -19,4 +19,10 @@ if(isset($_POST['deleteUser'])) {
     echo header("Location: accounts.php");
 }
 
+if(isset($_POST['deletePost'])) {
+    $id = $_POST['ID'];
+    $sql = "DELETE FROM posts WHERE postID = '$id'";
+    $con->query($sql) or die ($con->error);
+    echo header("Location: myPosts.php");
+}
 ?>

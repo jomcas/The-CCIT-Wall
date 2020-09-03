@@ -70,7 +70,7 @@ if(isset($_SESSION['UserLogin'])) {
                             <textarea class="form-control" id="addressTA" rows="3" name="postBody" required"
                                 style="resize:none;"></textarea>
                         </div>
-                        <input type="submit" class="btn btn-primary float-right" value="Post" name="addPost"/>
+                        <input type="submit" class="btn btn-primary float-right" value="Post" name="myPost"/>
                     </form>
                 </div>
             </div>
@@ -82,10 +82,20 @@ if(isset($_SESSION['UserLogin'])) {
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"> <?php echo $userPostRow['subject'] ?></h4>
+                    <h4 class="card-title float-"> <?php echo $userPostRow['subject'] ?></h4>
+
+                    <!-- In Progress -->
+                    <form action="delete.php" onSubmit="return confirm('Do you really want to delete this post?')" method="post">
+                                <button type="submit" class="view btn btn-danger btn-sm float-right" name="deletePost">Delete Post</button>
+                                <input type="hidden" class="<style>" name="ID" value="<?php echo $userPostRow['postID']?>">
+                                <a class="view btn btn-warning btn-sm float-right" name="update"
+                                href="/ccitforum/editPost.php?ID=<?php echo $userPostRow['postID']?>">Edit Post</a>
+                    </form>
+                    
+                            
                     <small class="card-subtitle">
                         <?php echo "Posted by <b>".$userPostRow['name'].' </b>'.' '.$userPostRow['email'].' '.$userPostRow['dateAdded']  ?>
-                    </small>
+                    </small>                            
                 </div>
                 <div class="card-body">
                     <?php echo $userPostRow['body'] ?>
