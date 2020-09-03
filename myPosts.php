@@ -21,7 +21,7 @@ if(!isset($_SESSION['UserLogin'])) {
 }   
 
 if(isset($_SESSION['UserLogin'])) {
-    echo "<div class='text-center'> Welcome ".$_SESSION['UserLogin']." Role: ".$_SESSION['Access']."</div>";
+    echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
 } else {
     echo "Welcome guest!";
 }
