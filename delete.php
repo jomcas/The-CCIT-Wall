@@ -12,7 +12,7 @@ include_once "connections/connection.php";
 
 $con = connection();
 
-if(isset($_POST['delete'])) {
+if(isset($_POST['deleteUser'])) {
     $id = $_POST['ID'];
     $sql = "DELETE FROM users WHERE userID = '$id'";
     $con->query($sql) or die ($con->error);

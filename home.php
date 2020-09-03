@@ -56,10 +56,6 @@ if(isset($_SESSION['UserLogin'])) {
             </div>
             <hr>
 
-            <?php if($_SESSION['Access'] == "admin") { ?>
-            <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
-            <?php } ?>
-
             <!-- Compose Post Section -->
             <h3> Compose Post </h3>
             <div class="card">

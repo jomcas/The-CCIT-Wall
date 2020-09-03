@@ -22,7 +22,8 @@ if(isset($_POST['login'])) {
         $_SESSION['ID'] = $row['userID'];
         echo header("Location: home.php");    
     } else {
-        echo "Please try again!";
+        echo "<script> alert('Please try again!') </script>";
+
     }
     $con->close();
 }

@@ -56,10 +56,6 @@ if(isset($_SESSION['UserLogin'])) {
             </div>
             <hr>
 
-            <?php if($_SESSION['Access'] == "admin") { ?>
-            <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
-            <?php } ?>
-
             <!-- Compose Post Section -->
             <h3> Compose Post </h3>
             <div class="card">
@@ -81,7 +77,7 @@ if(isset($_SESSION['UserLogin'])) {
 
             <br>
 
-            <!-- Recent Posts -->
+            <!-- My Posts -->
             <h3> My Posts </h3>
             <?php do { ?>
             <div class="card">

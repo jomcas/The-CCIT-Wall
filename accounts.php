@@ -53,11 +53,11 @@ if(isset($_SESSION['UserLogin'])) {
 
             <!-- ADMIN Add Account Button -->
             <?php if($_SESSION['Access'] == "admin") { ?>
-            <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
+            <a class="btn btn-link float-right" href="/ccitforum/add.php"> Add New Account </a> <br> <br>
             <?php } ?>
             
             <!-- USER Edit Account Link -->
-            <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account. </a>
+            <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account </a>
             
             <!-- Search Bar -->
             <form action="result.php" method="get">
@@ -75,6 +75,7 @@ if(isset($_SESSION['UserLogin'])) {
 
                 <thead>
                     <tr>
+                        <th scope="col">View Profile</th>
                         <th scope="col">id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
@@ -83,7 +84,7 @@ if(isset($_SESSION['UserLogin'])) {
                         <?php if($_SESSION['Access'] == "admin") { ?>
                         <th scope="col">Password</th>
                         <th scope="col">Access</th>
-                        <th scope="col">View</th>
+                  
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
                         <?php } ?>
@@ -92,6 +93,10 @@ if(isset($_SESSION['UserLogin'])) {
                 <tbody>
                     <?php do {?>
                     <tr>
+                        <td>
+                            <a class="view btn btn-info btn-sm" name="view"
+                                href="/ccitforum/details.php?ID=<?php echo $row['userID']?>">View Profile</a>
+                        </td>
                         <td> <b> <?php echo $row['userID'];?> </b> </td>
                         <td> <?php echo $row['name'];?> </td>
                         <td> <?php echo $row['email'];?> </td>
@@ -100,10 +105,7 @@ if(isset($_SESSION['UserLogin'])) {
                         <?php if($_SESSION['Access'] == "admin") { ?>
                         <td> <?php echo $row['password'];?> </td>
                         <td> <?php echo $row['access'];?> </td>
-                        <td>
-                            <a class="view btn btn-info btn-sm" name="view"
-                                href="/ccitforum/details.php?ID=<?php echo $row['userID']?>">View</a>
-                        </td>
+                        
                         <td>
                             <a class="view btn btn-warning btn-sm" name="update"
                                 href="/ccitforum/update.php?ID=<?php echo $row['userID']?>">Update</a>
@@ -111,7 +113,7 @@ if(isset($_SESSION['UserLogin'])) {
                         <td>
                             <form action="delete.php" onSubmit="return confirm('Do you really want to delete this user?')"
                                 method="post">
-                                <button type="submit" class="view btn btn-danger btn-sm" name="delete">Delete</button>
+                                <button type="submit" class="view btn btn-danger btn-sm" name="deleteUser">Delete</button>
                                 <input type="hidden" class="<style>hidden" name="ID" value="<?php echo $row['userID']?>">
                             </form>
                         </td>
