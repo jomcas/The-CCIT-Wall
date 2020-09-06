@@ -48,11 +48,11 @@ if(isset($_SESSION['UserLogin'])) {
             <!-- Button Group User -->
             <h1>&nbsp; News Feed </h1>
             <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  View the latest post.</small>
-            <div class="btn-group float-right" role="group" aria-label="Basic example">
-                <a class="btn btn-primary float-left" href="/ccitforum/home.php"> News Feed </a>&nbsp;
-                <a class="btn btn-secondary float-left" href="/ccitforum/myPosts.php"> My Posts </a>&nbsp;
-                <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>&nbsp;
-                <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+            <div class="btn-group float-right font-weight-bold" role="group" aria-label="Basic example">
+                <a class="btn btn-primary float-left font-weight-bold" href="/ccitforum/home.php"> News Feed </a>&nbsp;
+                <a class="btn btn-secondary float-left font-weight-bold" href="/ccitforum/myPosts.php"> My Posts </a>&nbsp;
+                <a class="btn btn-success float-left font-weight-bold" href="/ccitforum/accounts.php"> Accounts </a>&nbsp;
+                <a class="btn btn-danger float-left font-weight-bold" href="/ccitforum/logout.php"> Logout </a>
             </div>
             <br>
             <br>

@@ -45,10 +45,10 @@ if (isset($_SESSION['UserLogin'])) {
         <h1> Accounts </h1>
         <small> View All Users.</small>
         <div class="btn-group float-right" role="group" aria-label="">
-            <a class="btn btn-primary float-left" href="/ccitforum/home.php"> News Feed </a> &nbsp;
-            <a class="btn btn-secondary float-left" href="/ccitforum/myPosts.php"> My Posts </a> &nbsp;
-            <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a> &nbsp;
-            <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+            <a class="btn btn-primary float-left font-weight-bold" href="/ccitforum/home.php"> News Feed </a> &nbsp;
+            <a class="btn btn-secondary float-left font-weight-bold" href="/ccitforum/myPosts.php"> My Posts </a> &nbsp;
+            <a class="btn btn-success float-left font-weight-bold" href="/ccitforum/accounts.php"> Accounts </a> &nbsp;
+            <a class="btn btn-danger float-left font-weight-bold" href="/ccitforum/logout.php"> Logout </a>
         </div>
         <br>
         <br>
@@ -57,11 +57,11 @@ if (isset($_SESSION['UserLogin'])) {
         <div class="btn-group float-right" role="group" arial-label="">
             <!-- ADMIN Add Account Button -->
             <?php if ($_SESSION['Access'] == "admin") { ?>
-                <a class="btn btn-link float-right" href="/ccitforum/add.php"> Add New Account </a> <br> <br>
+                <a class="btn btn-link float-right text-decoration-none" href="/ccitforum/add.php"> Add New Account </a> <br> <br>
             <?php } ?>
 
             <!-- USER Edit Account Link -->
-            <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id ?>"> Edit My Account </a>
+            <a id="loginBtn" class="btn btn-link float-right text-decoration-none" href="/ccitforum/update.php?ID=<?php echo $id ?>"> Edit My Account </a>
 
         </div>
         <!-- Search Bar -->
