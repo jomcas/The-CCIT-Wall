@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($_SESSION)) {
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -15,17 +15,17 @@ $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
 
 // Can access the page if it is an admin or it is the user's personal account!
-if((isset($_SESSION['Access']) && $_SESSION['Access'] == "admin" || $_SESSION['ID'] == $id)) {
-    echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
- } else {
-     echo header("Location: home.php");
+if ((isset($_SESSION['Access']) && $_SESSION['Access'] == "admin" || $_SESSION['ID'] == $id)) {
+    echo "<div class='float-right'> Welcome <b> " . $_SESSION['UserLogin'] . " </b> | Role: <b> " . $_SESSION['Access'] . "</b></div> <br>";
+} else {
+    echo header("Location: home.php");
 }
 
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    if($_POST['access'] == "") {
+    if ($_POST['access'] == "") {
         $access = "user";
     } else {
         $access = $_POST['access'];
@@ -51,47 +51,43 @@ if(isset($_POST['submit'])) {
 <body>
 
     <div class="container">
-
         <div class="register">
             <h1 class="text-center"> CCIT Forum Admin </h1>
             <h3 class="text-center">Edit User </h1>
+                <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/accounts.php"> Back to User's List. </a>
+                <br><br>
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="post"
-                            onSubmit="return confirm('Do you really want to update this user')">
+                        <form action="" method="post" onSubmit="return confirm('Do you really want to update this user')">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="name" class="form-control" name="name" value="<?php echo $row['name']?>">
+                                <input type="name" class="form-control" name="name" value="<?php echo $row['name'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email"
-                                    value="<?php echo $row['email']?>">
+                                <input type="email" class="form-control" name="email" value="<?php echo $row['email'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" name="password"
-                                    value="<?php echo $row['password']?>">
+                                <input type="password" class="form-control" name="password" value="<?php echo $row['password'] ?>">
                             </div>
                             <!-- Access -->
-                            <?php if($_SESSION['Access'] == "admin") { ?>
-                            <div class="form-group">
-                                <label for="password">Access</label>
-                                <select name="access" class="form-control">
-                                    <?php if($row['access'] == "user") {  ?>
-                                    <option value="user" selected>User</option>
-                                    <option value="admin">Admin</option>
-                                    <?php } else { ?>
-                                    <option value="user">User</option>
-                                    <option value="admin" selected>Admin</option>
-                                    <?php } ?>
-                                </select>
-                            </div>
+                            <?php if ($_SESSION['Access'] == "admin") { ?>
+                                <div class="form-group">
+                                    <label for="password">Access</label>
+                                    <select name="access" class="form-control">
+                                        <?php if ($row['access'] == "user") {  ?>
+                                            <option value="user" selected>User</option>
+                                            <option value="admin">Admin</option>
+                                        <?php } else { ?>
+                                            <option value="user">User</option>
+                                            <option value="admin" selected>Admin</option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             <?php } ?>
-                            <input type="submit" name="submit" class="btn btn-success float-right"
-                                value="Save Changes"></input>
+                            <input type="submit" name="submit" class="btn btn-success float-right" value="Save Changes"></input>
                         </form>
-                        <a id="loginBtn" class="btn btn-link" href="/ccitforum/accounts.php"> Back to User's List. </a>
                     </div>
                 </div>
         </div>
