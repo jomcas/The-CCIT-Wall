@@ -22,7 +22,7 @@ if(isset($_POST['submit'])) {
 
     $con->query($sql) or die($con->error);
 
-   echo header("Location: index.php");
+   echo header("Location: accounts.php");
 }
 
 ?>

@@ -5,7 +5,7 @@ if(!isset($_SESSION)) {
 }
 
 if(!isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
-    echo header("Location: index.php");
+    echo header("Location: home.php");
 }
 
 include_once "connections/connection.php";
@@ -13,10 +13,12 @@ $con = connection();
 
 $id = $_GET['ID'];
 
+// Get user
 $sql = "SELECT * FROM users WHERE userID = '$id'";
 $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
 
+// Get user's post
 $userPostSQL = "SELECT users.userID, users.name, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
             "FROM users JOIN posts ".
             "ON users.userID = posts.userID ".
@@ -24,6 +26,7 @@ $userPostSQL = "SELECT users.userID, users.name, users.email, posts.postID, post
             " ORDER BY posts.dateAdded DESC";
 $userPosts = $con->query($userPostSQL) or die($con->error);
 $userPostRow = $userPosts->fetch_assoc();
+
 
 if(isset($_SESSION['UserLogin'])) {
     echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
@@ -65,6 +68,8 @@ if(isset($_SESSION['UserLogin'])) {
         <br>
 
         <!-- User's Posts -->
+
+        <?php if($userPosts->num_rows > 0) { ?>
         <h3> <?php echo $userPostRow['name']?> Posts </h3>
             <?php do { ?>
             <div class="card">
@@ -78,8 +83,10 @@ if(isset($_SESSION['UserLogin'])) {
                     <?php echo $userPostRow['body'] ?>
                 </div>
             </div> <br>
+        
             <?php } while($userPostRow = $userPosts->fetch_assoc()) ?>
+        <?php } else { echo "<div class='display-4'> No posts yet! </div>"; } ?>
+            
     </div>
 </body>
-
 </html>
