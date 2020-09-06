@@ -93,6 +93,7 @@ if(isset($_SESSION['UserLogin'])) {
                 </thead>
 
                 <tbody>
+                <?php if($users->num_rows > 0) { ?>
                     <?php do { ?>
                         <?php if($row['userID'] != $_SESSION['ID']) { ?>
                     <tr>
@@ -124,6 +125,7 @@ if(isset($_SESSION['UserLogin'])) {
                     </tr>
                         <?php } ?>
                     <?php } while ($row = $users->fetch_assoc()) ?>
+                    <?php } else { echo "<div class='display-4'> No accounts yet! </div>"; } ?>
                 </tbody>
 
 

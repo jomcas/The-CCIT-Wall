@@ -78,7 +78,9 @@ if(isset($_SESSION['UserLogin'])) {
             <br>
 
             <!-- My Posts -->
+
             <h3> My Posts </h3>
+            <?php if($userPosts->num_rows > 0) { ?>
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
@@ -102,6 +104,6 @@ if(isset($_SESSION['UserLogin'])) {
                 </div>
             </div> <br>
             <?php } while($userPostRow = $userPosts->fetch_assoc()) ?>
-    
+            <?php } else { echo "<div class='display-4'> No posts yet! </div>"; } ?>
     </body>
 <html>
