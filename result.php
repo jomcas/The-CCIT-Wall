@@ -40,17 +40,17 @@ if(isset($_SESSION['UserLogin'])) {
 
         <h1 class="text-center"> CCIT Forum Admin </h1>
         <h3 class="text-center"> Users Account </h3>
-        <!-- Button Group User -->
-        <h1> The CCIT Wall </h1>
-        <small> Create and edit posts. Read posts from other users.</small>
-        <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
-            <button type="button" class="btn btn-primary"><a class="text-white text-decoration-none"
-                    href="/applicants-pending">My Posts</a></button>
-            <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
-            <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
-        </div>
-        <hr>
+        
+         <!-- Button Group -->
+         <h1> Accounts </h1>
+            <small> View All Users.</small>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+                <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
+                <a class="btn btn-primary float-left" href="/ccitforum/myPosts.php"> My Posts </a>
+                <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
+                <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+            </div>
+            <hr>
         
         <!-- Edit Account Link -->
         <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account. </a>
@@ -71,48 +71,55 @@ if(isset($_SESSION['UserLogin'])) {
 
         <!-- Users Table -->
         <table class="table table-striped">
+
             <thead>
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <?php if($_SESSION['Access'] == "admin") { ?>
-                    <th scope="col">Password</th>
-                    <th scope="col">Access</th>
-                    <th scope="col">View</th>
-                    <th scope="col">Update</th>
-                    <th scope="col">Delete</th>
-                    <?php } ?>
-            </thead>
+                    <tr>
+                        <th scope="col">View Profile</th>
+                        <th scope="col">id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+
+                        <!-- ADMIN COLUMNS FIELDS -->
+                        <?php if($_SESSION['Access'] == "admin") { ?>
+                        <th scope="col">Password</th>
+                        <th scope="col">Access</th>
+                  
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                        <?php } ?>
+                </thead>
 
             <tbody>
-                <?php do {?>
-                <tr>
-                    <td> <b> <?php echo $row['userID'];?> </b> </td>
-                    <td> <?php echo $row['name'];?> </td>
-                    <td> <?php echo $row['email'];?> </td>
-                    <?php if($_SESSION['Access'] == "admin") { ?>
-                    <td> <?php echo $row['password'];?> </td>
-                    <td> <?php echo $row['access'];?> </td>
-                    <td>
-                        <a class="view btn btn-info btn-sm" name="view"
-                            href="/ccitforum/details.php?ID=<?php echo $row['userID']?>">View</a>
-                    </td>
-                    <td>
-                        <a class="view btn btn-warning btn-sm" name="update"
-                            href="/ccitforum/update.php?ID=<?php echo $row['userID']?>">Update</a>
-                    </td>
-                    <td>
-                        <form action="delete.php" onSubmit="return confirm('Do you really want to delete this user?')"
-                            method="post">
-                            <button type="submit" class="view btn btn-danger btn-sm" name="delete">Delete</button>
-                            <input type="hidden" class="<style>hidden" name="ID" value="<?php echo $row['userID']?>">
-                        </form>
-                    </td>
-                    <?php } ?>
-                </tr>
-                <?php } while ($row = $users->fetch_assoc()) ?>
-            </tbody>
+                    <?php do {?>
+                    <tr>
+                        <td>
+                            <a class="view btn btn-info btn-sm" name="view"
+                                href="/ccitforum/details.php?ID=<?php echo $row['userID']?>">View Profile</a>
+                        </td>
+                        <td> <b> <?php echo $row['userID'];?> </b> </td>
+                        <td> <?php echo $row['name'];?> </td>
+                        <td> <?php echo $row['email'];?> </td>
+
+                        <!-- ADMIN Rows -->
+                        <?php if($_SESSION['Access'] == "admin") { ?>
+                        <td> <?php echo $row['password'];?> </td>
+                        <td> <?php echo $row['access'];?> </td>
+                        
+                        <td>
+                            <a class="view btn btn-warning btn-sm" name="update"
+                                href="/ccitforum/update.php?ID=<?php echo $row['userID']?>">Update</a>
+                        </td>
+                        <td>
+                            <form action="delete.php" onSubmit="return confirm('Do you really want to delete this user?')"
+                                method="post">
+                                <button type="submit" class="view btn btn-danger btn-sm" name="delete">Delete</button>
+                                <input type="hidden" class="<style>hidden" name="ID" value="<?php echo $row['userID']?>">
+                            </form>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <?php } while ($row = $users->fetch_assoc()) ?>
+                </tbody>
         </table>
         <a id="loginBtn" class="btn btn-link float-left" href="/ccitforum/accounts.php"> View All User's List. </a>
         <div>

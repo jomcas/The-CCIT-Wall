@@ -8,16 +8,17 @@ include_once "connections/connection.php";
 
 $con = connection();
 $id = $_SESSION['ID'];
-$postSQL =  "SELECT users.userID, users.name, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
+$userPostSQL = "SELECT users.userID, users.name, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
             "FROM users JOIN posts ".
             "ON users.userID = posts.userID ".
-            "ORDER BY posts.dateAdded DESC"; 
-$posts = $con->query($postSQL) or die($con->error);
-$postRow = $posts->fetch_assoc();
+            "WHERE users.userID = ".$id.
+            " ORDER BY posts.dateAdded DESC";
+$userPosts = $con->query($userPostSQL) or die($con->error);
+$userPostRow = $userPosts->fetch_assoc();
 
 if(!isset($_SESSION['UserLogin'])) {
     echo header("Location: login.php");
-}
+}   
 
 if(isset($_SESSION['UserLogin'])) {
     echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
@@ -26,7 +27,6 @@ if(isset($_SESSION['UserLogin'])) {
 }
 
 ?>
-
 
 <!-- HTML CODES -->
 
@@ -46,11 +46,11 @@ if(isset($_SESSION['UserLogin'])) {
             <h3 class="text-center"> Homepage </h3>
 
             <!-- Button Group User -->
-            <h1> News Feed </h1>
-            <small> View the latest post.</small>
+            <h1> My Posts </h1>
+            <small> View your posts.</small>
             <div class="btn-group float-right" role="group" aria-label="Basic example">
                 <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
-                <a class="btn btn-primary float-left" href="/ccitforum/myPosts.php"> My Posts </a>
+                <a class="btn btn-primary float-left" href="/ccitforum/home.php?ID=<?php echo $id ?>"> My Posts </a>
                 <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
                 <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
             </div>
@@ -70,30 +70,40 @@ if(isset($_SESSION['UserLogin'])) {
                             <textarea class="form-control" id="addressTA" rows="3" name="postBody" required"
                                 style="resize:none;"></textarea>
                         </div>
-                        <input type="submit" class="btn btn-primary float-right" value="Post" name="addPost"/>
+                        <input type="submit" class="btn btn-primary float-right" value="Post" name="myPost"/>
                     </form>
                 </div>
             </div>
 
             <br>
 
-            <!-- Recent Posts -->
-            <?php if($posts->num_rows > 0) { ?>
-            <h3> Recent Posts </h3>
+            <!-- My Posts -->
+
+            <h3> My Posts </h3>
+            <?php if($userPosts->num_rows > 0) { ?>
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"> <?php echo $postRow['subject'] ?></h4>
+                    <h4 class="card-title float-"> <?php echo $userPostRow['subject'] ?></h4>
+
+                    <!-- In Progress -->
+                    <form action="delete.php" onSubmit="return confirm('Do you really want to delete this post?')" method="post">
+                                <button type="submit" class="view btn btn-danger btn-sm float-right" name="deletePost">Delete Post</button>
+                                <input type="hidden" class="<style>" name="ID" value="<?php echo $userPostRow['postID']?>">
+                                <a class="view btn btn-warning btn-sm float-right" name="update"
+                                href="/ccitforum/editPost.php?ID=<?php echo $userPostRow['postID']?>">Edit Post</a>
+                    </form>
+                    
+                            
                     <small class="card-subtitle">
-                        <?php echo "Posted by <b>".$postRow['name'].' </b>'.' '.$postRow['email'].' '.$postRow['dateAdded']  ?>
-                    </small>
+                        <?php echo "Posted by <b>".$userPostRow['name'].' </b>'.' '.$userPostRow['email'].' '.$userPostRow['dateAdded']  ?>
+                    </small>                            
                 </div>
                 <div class="card-body">
-                    <?php echo $postRow['body'] ?>
+                    <?php echo $userPostRow['body'] ?>
                 </div>
             </div> <br>
-            <?php } while($postRow = $posts->fetch_assoc()) ?>
+            <?php } while($userPostRow = $userPosts->fetch_assoc()) ?>
             <?php } else { echo "<div class='display-4'> No posts yet! </div>"; } ?>
-    
     </body>
 <html>

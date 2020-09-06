@@ -8,17 +8,18 @@ include_once "connections/connection.php";
 
 $con = connection();
 
-if(isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
-   echo "Welcome ". $_SESSION['UserLogin'];
-} 
-
-$con = connection();
-
 $id = $_GET['ID'];
 
 $sql = "SELECT * FROM users WHERE userID = '$id'";
 $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
+
+// Can access the page if it is an admin or it is the user's personal account!
+if((isset($_SESSION['Access']) && $_SESSION['Access'] == "admin" || $_SESSION['ID'] == $id)) {
+    echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
+ } else {
+     echo header("Location: home.php");
+}
 
 if(isset($_POST['submit'])) {
     $name = $_POST['name'];
@@ -33,7 +34,7 @@ if(isset($_POST['submit'])) {
 
     $con->query($sql) or die($con->error);
 
-    echo header("Location: index.php");
+    echo header("Location: accounts.php");
 }
 ?>
 
