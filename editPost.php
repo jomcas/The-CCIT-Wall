@@ -15,6 +15,7 @@ $sql = "SELECT * FROM posts WHERE postID = '$id'";
 $posts = $con->query($sql) or die($con->error);
 $row = $posts->fetch_assoc();
 
+
 // Can access the page if the posts.userID = users.userID
 if($row['userID'] == $userID) {
     echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";

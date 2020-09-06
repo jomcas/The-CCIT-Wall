@@ -43,7 +43,7 @@ if(isset($_SESSION['UserLogin'])) {
             <!-- Button Group -->
             <h1> Accounts </h1>
             <small> View All Users.</small>
-            <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <div class="btn-group float-right" role="group" aria-label="">
                 <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
                 <a class="btn btn-primary float-left" href="/ccitforum/myPosts.php"> My Posts </a>
                 <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
@@ -51,6 +51,7 @@ if(isset($_SESSION['UserLogin'])) {
             </div>
             <hr>
 
+            <div class="btn-group flot-right" role="group" arial-label="">
             <!-- ADMIN Add Account Button -->
             <?php if($_SESSION['Access'] == "admin") { ?>
             <a class="btn btn-link float-right" href="/ccitforum/add.php"> Add New Account </a> <br> <br>
@@ -59,6 +60,7 @@ if(isset($_SESSION['UserLogin'])) {
             <!-- USER Edit Account Link -->
             <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account </a>
             
+            </div>
             <!-- Search Bar -->
             <form action="result.php" method="get">
                 <div class="input-group mb-3">
@@ -91,7 +93,8 @@ if(isset($_SESSION['UserLogin'])) {
                 </thead>
 
                 <tbody>
-                    <?php do {?>
+                    <?php do { ?>
+                        <?php if($row['userID'] != $_SESSION['ID']) { ?>
                     <tr>
                         <td>
                             <a class="view btn btn-info btn-sm" name="view"
@@ -119,6 +122,7 @@ if(isset($_SESSION['UserLogin'])) {
                         </td>
                         <?php } ?>
                     </tr>
+                        <?php } ?>
                     <?php } while ($row = $users->fetch_assoc()) ?>
                 </tbody>
 
