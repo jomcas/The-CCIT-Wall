@@ -32,6 +32,7 @@ if(isset($_SESSION['UserLogin'])) {
 <head>
     <title> CCIT Forum </title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
@@ -60,7 +61,7 @@ if(isset($_SESSION['UserLogin'])) {
         <?php } ?>
         
         <!-- Search Bar -->
-        <form action="result.php" method="get">
+        <form action="result.php" method="get" accept-charset="utf-8">
             <div class="input-group mb-3">
             <input type="text" name="search" id="search" class="form-control" placeholder="Search for user's name or email" autocomplete="off">
             <div class="input-group-append float-right">
@@ -113,7 +114,7 @@ if(isset($_SESSION['UserLogin'])) {
                         </td>
                         <td>
                             <form action="delete.php" onSubmit="return confirm('Do you really want to delete this user?')"
-                                method="post">
+                                method="post" accept-charset="utf-8">
                                 <button type="submit" class="view btn btn-danger btn-sm" name="delete">Delete</button>
                                 <input type="hidden" class="<style>hidden" name="ID" value="<?php echo $row['userID']?>">
                             </form>
