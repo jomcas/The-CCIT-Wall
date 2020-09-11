@@ -4,6 +4,8 @@ if(!isset($_SESSION)) {
     session_start();
 }
 include_once "connections/connection.php";
+include "validation/validation.php";
+
 $con = connection();
 
 
@@ -30,9 +32,35 @@ if(isset($_POST['login'])) {
 
 // Register POST Action
 if(isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    // Empty by default
+    $name = "";
+    $email = "";
+    $password = "";
+
+    // Validation
+    // Name
+    if(isNameValid($_POST['name']) == 1) {
+        $name = formValidate($_POST['name']);
+    } else {
+        die("Error: Invalid Name!");
+    }
+
+    // Email
+    if(isEmailValid($_POST['email']) == 1) {
+        $email = formValidate($_POST['email']);
+    } else {
+        die("Error: Invalid Email!");
+    }
+
+    // Password
+    if(isPasswordValid($_POST['password']) == 1) {
+        $password = $_POST['password'];
+    } else {
+        die("Error: Invalid Password!");
+    }
+
+
+    // For duplicate email checking
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $user = $con->query($sql) or die ($con->error);
     $row = $user -> fetch_assoc();
@@ -42,14 +70,19 @@ if(isset($_POST['register'])) {
         echo "Duplicate Email! Try Again";
     } else {
         $insertSql = "INSERT INTO `users` (`name`,`email`,`password`,`access`) VALUES ('$name','$email','$password','user')";
-        $con->query($insertSql) or die($con->error);
-        $last_id = $con->insert_id;
-        echo "Umabot Dito";
+        
+        // Rejection if it is empty
+        if($name == "" || $email == "" || $password = "") {
+            die("Error: Invalid Input!");
+        } else {
+            $con->query($insertSql) or die($con->error);
+            $last_id = $con->insert_id;
+        }
+        
         $_SESSION['UserLogin'] = $email;
         $_SESSION['Access'] = "user";
         $_SESSION['ID'] = $last_id;
         echo header("Location: home.php");  
-        echo "Dito din";
     }
 
     $con->close();
@@ -128,6 +161,7 @@ if(isset($_POST['register'])) {
                             <div class="card">
                                 <div class="card-body">
                                     <form action="" method="POST">
+                                        <!-- Divide Name into Last and First Name -->
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input type="name" class="form-control" name="name">

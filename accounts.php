@@ -31,6 +31,7 @@ if(isset($_SESSION['UserLogin'])) {
     <head>
         <title> CCIT Forum </title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
 
     <body>
@@ -62,7 +63,7 @@ if(isset($_SESSION['UserLogin'])) {
             
             </div>
             <!-- Search Bar -->
-            <form action="result.php" method="get">
+            <form action="result.php" method="get" accept-charset="utf-8">
                 <div class="input-group mb-3">
                     <input type="text" name="search" id="search" class="form-control"
                         placeholder="Search for user's name or email" autocomplete="off">
@@ -127,8 +128,6 @@ if(isset($_SESSION['UserLogin'])) {
                     <?php } while ($row = $users->fetch_assoc()) ?>
                     <?php } else { echo "<div class='display-4'> No accounts yet! </div>"; } ?>
                 </tbody>
-
-
             </table>
         <div>
         
