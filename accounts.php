@@ -28,13 +28,11 @@ if (isset($_SESSION['UserLogin'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<<<<<<< HEAD
     <head>
         <title> CCIT Forum </title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
-=======
 <head>
     <title> CCIT Forum </title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -67,7 +65,6 @@ if (isset($_SESSION['UserLogin'])) {
             <?php if ($_SESSION['Access'] == "admin") { ?>
                 <a class="btn btn-link float-right text-decoration-none" href="/ccitforum/add.php"> Add New Account </a> <br> <br>
             <?php } ?>
->>>>>>> 087d82f2736edf70d7b105b972c8b8cdc26af303
 
             <!-- USER Edit Account Link -->
             <a id="loginBtn" class="btn btn-link float-right text-decoration-none" href="/ccitforum/update.php?ID=<?php echo $id ?>"> Edit My Account </a>
@@ -92,8 +89,6 @@ if (isset($_SESSION['UserLogin'])) {
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
-
-<<<<<<< HEAD
             <div class="btn-group flot-right" role="group" arial-label="">
             <!-- ADMIN Add Account Button -->
             <?php if($_SESSION['Access'] == "admin") { ?>
@@ -127,11 +122,9 @@ if (isset($_SESSION['UserLogin'])) {
 
                         <!-- ADMIN COLUMNS FIELDS -->
                         <?php if($_SESSION['Access'] == "admin") { ?>
-=======
 
                     <!-- ADMIN COLUMNS FIELDS -->
                     <?php if ($_SESSION['Access'] == "admin") { ?>
->>>>>>> 087d82f2736edf70d7b105b972c8b8cdc26af303
                         <th scope="col">Password</th>
                         <th scope="col">Access</th>
                         <th scope="col"></th>
@@ -172,20 +165,14 @@ if (isset($_SESSION['UserLogin'])) {
                             </tr>
                         <?php } ?>
                     <?php } while ($row = $users->fetch_assoc()) ?>
-<<<<<<< HEAD
                     <?php } else { echo "<div class='display-4'> No accounts yet! </div>"; } ?>
                 </tbody>
             </table>
-=======
                 <?php } else {
                     echo "<div class='display-4'> No accounts yet! </div>";
                 } ?>
             </tbody>
-
-
         </table>
->>>>>>> 087d82f2736edf70d7b105b972c8b8cdc26af303
         <div>
-
 </body>
 <html>
