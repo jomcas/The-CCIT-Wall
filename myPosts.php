@@ -36,6 +36,7 @@ if(isset($_SESSION['UserLogin'])) {
     <head>
         <title> CCIT Forum </title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
 
     <body>
@@ -62,7 +63,7 @@ if(isset($_SESSION['UserLogin'])) {
             <h3>&nbsp;&nbsp; Compose Post </h3>
             <div class="card">
                 <div class="card-body">
-                    <form action="addPost.php" method="post" onSubmit="return alert('Your post was posted!')">
+                    <form action="addPost.php" method="post" onSubmit="return alert('Your post was posted!')" accept-charset="utf-8">
                         <div class="form-group">
                             <label for="name">&nbsp;&nbsp;Topic </label>
                             <input type="text" class="form-control" name="postSubject" required>
@@ -89,7 +90,7 @@ if(isset($_SESSION['UserLogin'])) {
                     <h4 class="card-title float-"> <?php echo $userPostRow['subject'] ?></h4>
 
                     <!-- In Progress -->
-                    <form action="delete.php" onSubmit="return confirm('Do you really want to delete this post?')" method="post">
+                    <form action="delete.php" onSubmit="return confirm('Do you really want to delete this post?')" method="post" accept-charset="utf-8">
                                 <button type="submit" class="view btn btn-danger btn-sm float-right" name="deletePost"><b>Delete Post</b></button>
                                 <input type="hidden" class="<style>" name="ID" value="<?php echo $userPostRow['postID']?>">
                                 <a class="view btn btn-warning btn-sm float-right" name="update" style="color:white"

@@ -35,6 +35,7 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New User </title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
@@ -47,7 +48,7 @@ if (isset($_POST['submit'])) {
                 <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/"> Back to User's List. </a><br><br>
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="post" onSubmit="return confirm('Do you really want to add this user?')">
+                        <form action="" method="post" onSubmit="return confirm('Do you really want to add this user?')" accept-charset="utf-8">
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="name" class="form-control" name="name">

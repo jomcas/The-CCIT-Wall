@@ -45,7 +45,7 @@ if (isset($_SESSION['UserLogin'])) {
     <title>View Details</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>

@@ -65,7 +65,7 @@ if (isset($_POST['register'])) {
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
@@ -98,7 +98,7 @@ if (isset($_POST['register'])) {
                         <h1 class="text-center">Sign In.</h1>
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="" method="POST" accept-charset="utf-8">
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control" name="email">
@@ -122,7 +122,7 @@ if (isset($_POST['register'])) {
                         <h1 class="text-center">Sign Up.</h1>
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="" method="POST" accept-charset="utf-8">
                                     <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="name" class="form-control" name="name">
