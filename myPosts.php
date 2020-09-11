@@ -49,10 +49,10 @@ if(isset($_SESSION['UserLogin'])) {
             <h1> &nbsp;&nbsp;My Posts </h1>
             <small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View your posts.</small>
             <div class="btn-group float-right" role="group" aria-label="Basic example">
-                <a class="btn btn-primary float-left" href="/ccitforum/home.php"> News Feed </a> &nbsp;
-                <a class="btn btn-secondary float-left" href="/ccitforum/myPosts.php?ID=<?php echo $id ?>"> My Posts </a> &nbsp;
-                <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a> &nbsp;
-                <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+                <a class="btn btn-primary float-left font-weight-bold" href="/ccitforum/home.php"> News Feed </a> &nbsp;
+                <a class="btn btn-secondary float-left font-weight-bold" href="/ccitforum/myPosts.php?ID=<?php echo $id ?>"> My Posts </a> &nbsp;
+                <a class="btn btn-success float-left font-weight-bold" href="/ccitforum/accounts.php"> Accounts </a> &nbsp;
+                <a class="btn btn-danger float-left font-weight-bold" href="/ccitforum/logout.php"> Logout </a>
             </div>
             <br>
             <br>
@@ -72,7 +72,7 @@ if(isset($_SESSION['UserLogin'])) {
                             <textarea class="form-control" id="addressTA" rows="3" name="postBody" required"
                                 style="resize:none;"></textarea>
                         </div>
-                        <input type="submit" class="btn btn-primary float-right" value="Post" name="myPost"/>
+                        <input type="submit" class="btn btn-primary float-right font-weight-bold" value="Post" name="myPost"/>
                     </form>
                 </div>
             </div>
@@ -90,10 +90,10 @@ if(isset($_SESSION['UserLogin'])) {
 
                     <!-- In Progress -->
                     <form action="delete.php" onSubmit="return confirm('Do you really want to delete this post?')" method="post">
-                                <button type="submit" class="view btn btn-danger btn-sm float-right" name="deletePost">Delete Post</button>
+                                <button type="submit" class="view btn btn-danger btn-sm float-right" name="deletePost"><b>Delete Post</b></button>
                                 <input type="hidden" class="<style>" name="ID" value="<?php echo $userPostRow['postID']?>">
-                                <a class="view btn btn-warning btn-sm float-right" name="update"
-                                href="/ccitforum/editPost.php?ID=<?php echo $userPostRow['postID']?>">Edit Post</a>
+                                <a class="view btn btn-warning btn-sm float-right" name="update" style="color:white"
+                                href="/ccitforum/editPost.php?ID=<?php echo $userPostRow['postID']?>"><b>Edit Post</b></a>
                     </form>
                     
                             
