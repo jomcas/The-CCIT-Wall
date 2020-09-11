@@ -15,10 +15,11 @@ if(isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
 }
 
 if(isset($_POST['submit'])) {
-    $name = $_POST['name'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $sql = "INSERT INTO `users` (`name`,`email`,`password`,`access`) VALUES ('$name','$email','$password', 'user')";
+    $sql = "INSERT INTO `users` (`firstName`,`lastName`,`email`,`password`,`access`) VALUES ('$firstName','$lastName','$email','$password', 'user')";
 
     $con->query($sql) or die($con->error);
 
@@ -48,8 +49,12 @@ if(isset($_POST['submit'])) {
                 <div class="card-body">
                     <form action="" method="post" onSubmit="return confirm('Do you really want to add this user?'">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="name" class="form-control" name="name">
+                            <label for="firstName">First Name</label>
+                            <input type="name" class="form-control" name="firstName">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="name" class="form-control" name="lastName">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>

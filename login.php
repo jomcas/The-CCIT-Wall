@@ -30,7 +30,8 @@ if(isset($_POST['login'])) {
 
 // Register POST Action
 if(isset($_POST['register'])) {
-    $name = $_POST['name'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $sql = "SELECT * FROM users WHERE email = '$email'";
@@ -41,7 +42,7 @@ if(isset($_POST['register'])) {
     if($total > 0) {
         echo "Duplicate Email! Try Again";
     } else {
-        $insertSql = "INSERT INTO `users` (`name`,`email`,`password`,`access`) VALUES ('$name','$email','$password','user')";
+        $insertSql = "INSERT INTO `users` (`firstName`,`lastName`, `email`,`password`,`access`) VALUES ('$firstName', '$lastName', '$email','$password','user')";
         $con->query($insertSql) or die($con->error);
         $last_id = $con->insert_id;
         echo "Umabot Dito";
@@ -129,8 +130,12 @@ if(isset($_POST['register'])) {
                                 <div class="card-body">
                                     <form action="" method="POST">
                                         <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="name" class="form-control" name="name">
+                                            <label for="firstName">First Name</label>
+                                            <input type="name" class="form-control" name="firstName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Last Name</label>
+                                            <input type="name" class="form-control" name="lastName">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email</label>

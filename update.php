@@ -22,7 +22,8 @@ if((isset($_SESSION['Access']) && $_SESSION['Access'] == "admin" || $_SESSION['I
 }
 
 if(isset($_POST['submit'])) {
-    $name = $_POST['name'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     if($_POST['access'] == "") {
@@ -30,7 +31,7 @@ if(isset($_POST['submit'])) {
     } else {
         $access = $_POST['access'];
     }
-    $sql = "UPDATE `users` SET `name` = '$name', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
+    $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
 
     $con->query($sql) or die($con->error);
 
@@ -60,8 +61,12 @@ if(isset($_POST['submit'])) {
                         <form action="" method="post"
                             onSubmit="return confirm('Do you really want to update this user')">
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="name" class="form-control" name="name" value="<?php echo $row['name']?>">
+                                <label for="firstName">First Name</label>
+                                <input type="name" class="form-control" name="firstName" value="<?php echo $row['firstName']?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="name" class="form-control" name="lastName" value="<?php echo $row['lastName']?>">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>

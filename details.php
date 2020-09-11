@@ -19,7 +19,7 @@ $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
 
 // Get user's post
-$userPostSQL = "SELECT users.userID, users.name, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
+$userPostSQL = "SELECT users.userID, users.firstName, users.lastName, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
             "FROM users JOIN posts ".
             "ON users.userID = posts.userID ".
             "WHERE users.userID = ".$id.
@@ -58,7 +58,8 @@ if(isset($_SESSION['UserLogin'])) {
 
         <div class="card">
             <div class="card-body" <div class="view">
-                <h2> <b>Name</b> : <?php echo $row['name'];?> </h2>
+                <h2> <b>First Name</b> : <?php echo $row['firstName'];?> </h2>
+                <h2> <b>Last Name</b> : <?php echo $row['lastName'];?> </h2>
                 <h2> <b>Email</b> : <?php echo $row['email'];?> </h2>
                 <h2> <b>Access</b>: <?php echo $row['access'];?> </h2>
             </div>
@@ -76,7 +77,7 @@ if(isset($_SESSION['UserLogin'])) {
                 <div class="card-header">
                     <h4 class="card-title"> <?php echo $userPostRow['subject'] ?></h4>
                     <small class="card-subtitle">
-                        <?php echo "Posted by <b>".$userPostRow['name'].' </b>'.' '.$userPostRow['email'].' '.$userPostRow['dateAdded']  ?>
+                        <?php echo "Posted by <b>".$userPostRow['firstName'].' '.$userPostRow['lastName'].' </b>'.' '.$userPostRow['email'].' '.$userPostRow['dateAdded']  ?>
                     </small>
                 </div>
                 <div class="card-body">

@@ -8,7 +8,7 @@ include_once "connections/connection.php";
 
 $con = connection();
 $id = $_SESSION['ID'];
-$userPostSQL = "SELECT users.userID, users.name, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
+$userPostSQL = "SELECT users.userID, users.firstName, users.lastName, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
             "FROM users JOIN posts ".
             "ON users.userID = posts.userID ".
             "WHERE users.userID = ".$id.
@@ -96,7 +96,7 @@ if(isset($_SESSION['UserLogin'])) {
                     
                             
                     <small class="card-subtitle">
-                        <?php echo "Posted by <b>".$userPostRow['name'].' </b>'.' '.$userPostRow['email'].' '.$userPostRow['dateAdded']  ?>
+                        <?php echo "Posted by <b>".$userPostRow['firstName'].' '.$userPostRow['lastName'].' </b>'.' '.$userPostRow['email'].' '.$userPostRow['dateAdded']  ?>
                     </small>                            
                 </div>
                 <div class="card-body">

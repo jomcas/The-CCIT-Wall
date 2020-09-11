@@ -76,7 +76,8 @@ if(isset($_SESSION['UserLogin'])) {
                     <tr>
                         <th scope="col">View Profile</th>
                         <th scope="col">id</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
                         <th scope="col">Email</th>
 
                         <!-- ADMIN COLUMNS FIELDS -->
@@ -97,7 +98,8 @@ if(isset($_SESSION['UserLogin'])) {
                                 href="/ccitforum/details.php?ID=<?php echo $row['userID']?>">View Profile</a>
                         </td>
                         <td> <b> <?php echo $row['userID'];?> </b> </td>
-                        <td> <?php echo $row['name'];?> </td>
+                        <td> <?php echo $row['firstName'];?> </td>
+                        <td> <?php echo $row['lastName'];?> </td>
                         <td> <?php echo $row['email'];?> </td>
 
                         <!-- ADMIN Rows -->
