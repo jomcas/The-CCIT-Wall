@@ -36,6 +36,7 @@ if(isset($_SESSION['UserLogin'])) {
     <head>
         <title> CCIT Forum </title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
 
     <body>
@@ -62,7 +63,7 @@ if(isset($_SESSION['UserLogin'])) {
             <h3>&nbsp;&nbsp; Compose Post </h3>
             <div class="card">
                 <div class="card-body">
-                    <form action="addPost.php" method="post" onSubmit="return alert('Your post was posted!')">
+                    <form action="addPost.php" method="post" onSubmit="return alert('Your post was posted!')" accept-charset="utf-8">
                         <div class="form-group">
                             <label for="name">&nbsp;&nbsp;Topic </label>
                             <input type="text" class="form-control" name="postSubject" required>
