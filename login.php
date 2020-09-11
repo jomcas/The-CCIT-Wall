@@ -30,7 +30,6 @@ if (isset($_POST['login'])) {
 }
 
 // Register POST Action
-<<<<<<< HEAD
 if(isset($_POST['register'])) {
     // Empty by default
     $name = "";
@@ -61,12 +60,6 @@ if(isset($_POST['register'])) {
 
 
     // For duplicate email checking
-=======
-if (isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
->>>>>>> 087d82f2736edf70d7b105b972c8b8cdc26af303
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $user = $con->query($sql) or die($con->error);
     $row = $user->fetch_assoc();
@@ -88,12 +81,7 @@ if (isset($_POST['register'])) {
         $_SESSION['UserLogin'] = $email;
         $_SESSION['Access'] = "user";
         $_SESSION['ID'] = $last_id;
-<<<<<<< HEAD
         echo header("Location: home.php");  
-=======
-        echo header("Location: home.php");
-        echo "Dito din";
->>>>>>> 087d82f2736edf70d7b105b972c8b8cdc26af303
     }
 
     $con->close();
@@ -160,7 +148,6 @@ if (isset($_POST['register'])) {
                         </div>
                     </div>
 
-<<<<<<< HEAD
                         <!-- Register Section -->
                         <div class="register">
                             <h5 class="text-muted text-center">National University - Manila</h5>
@@ -187,31 +174,6 @@ if (isset($_POST['register'])) {
                                     </form>
                                     <p> Already a member? <button id="loginBtn" class="btn btn-link"> Sign In Here.                                    </button></p>
                                 </div>
-=======
-                    <!-- Register Section -->
-                    <div class="register">
-                        <h5 class="text-muted text-center">National University - Manila</h5>
-                        <p class="text-muted">College of Computing and Information Technologies</p>
-                        <h1 class="text-center">Sign Up.</h1>
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="" method="POST" accept-charset="utf-8">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="name" class="form-control" name="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" name="password">
-                                    </div>
-                                    <input type="submit" name="register" class="btn btn-primary float-right" value="Sign Up"></input>
-                                </form>
-                                <p> Already a member? <button id="loginBtn" class="btn btn-link"> Sign In Here. </button></p>
->>>>>>> 087d82f2736edf70d7b105b972c8b8cdc26af303
                             </div>
                         </div>
                     </div>
