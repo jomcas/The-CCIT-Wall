@@ -1,10 +1,10 @@
 <?php
 
-if(!isset($_SESSION)) {
+if (!isset($_SESSION)) {
     session_start();
 }
 
-if(!isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
+if (!isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
     echo header("Location: home.php");
 }
 
@@ -28,8 +28,8 @@ $userPosts = $con->query($userPostSQL) or die($con->error);
 $userPostRow = $userPosts->fetch_assoc();
 
 
-if(isset($_SESSION['UserLogin'])) {
-    echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
+if (isset($_SESSION['UserLogin'])) {
+    echo "<div class='float-right'> Welcome <b> " . $_SESSION['UserLogin'] . " </b> Role: <b> " . $_SESSION['Access'] . "</b></div> <br>";
 } else {
     echo "Welcome guest!";
 }
@@ -45,7 +45,7 @@ if(isset($_SESSION['UserLogin'])) {
     <title>View Details</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
@@ -55,7 +55,8 @@ if(isset($_SESSION['UserLogin'])) {
         <h3 class="text-center"> View Details </h3>
         <br> <br>
         <!-- <a class="btn btn-dark" href="/ccitforum/index.php"> Back to List </a> <br> -->
-
+        <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/accounts.php"> Back to User's List. </a>
+        <br><br>
         <div class="card">
             <div class="card-body" <div class="view">
                 <h2> <b>First Name</b> : <?php echo $row['firstName'];?> </h2>
@@ -63,15 +64,16 @@ if(isset($_SESSION['UserLogin'])) {
                 <h2> <b>Email</b> : <?php echo $row['email'];?> </h2>
                 <h2> <b>Access</b>: <?php echo $row['access'];?> </h2>
             </div>
-            <a id="loginBtn" class="btn btn-link" href="/ccitforum/accounts.php"> Back to User's List. </a>
+
         </div>
 
         <br>
 
         <!-- User's Posts -->
 
-        <?php if($userPosts->num_rows > 0) { ?>
-        <h3> <?php echo $userPostRow['name']?> Posts </h3>
+        <?php if ($userPosts->num_rows > 0) { ?>
+            <br>
+            <h3> &nbsp;&nbsp;&nbsp;<?php echo $userPostRow['name'] ?>'s Posts </h3>
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
@@ -90,4 +92,5 @@ if(isset($_SESSION['UserLogin'])) {
             
     </div>
 </body>
+
 </html>
