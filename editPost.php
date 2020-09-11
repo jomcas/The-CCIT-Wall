@@ -41,6 +41,7 @@ if(isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
     <div class="container">
@@ -48,7 +49,7 @@ if(isset($_POST['submit'])) {
         <h3 class="text-center">Edit Post Content </h1>
             <div class="card">
                 <div class="card-body">
-                    <form action="addPost.php" method="post" onSubmit="return alert('Your post was edited!')">
+                    <form action="addPost.php" method="post" onSubmit="return alert('Your post was edited!')" accept-charset="utf-8">
                         <div class="form-group">
                             <label for="name">Topic </label>
                             <input type="text" class="form-control" name="postSubject" value=" <?php echo $row['subject'] ?>" required> </input>
