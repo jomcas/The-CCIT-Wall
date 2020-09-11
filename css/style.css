@@ -45,7 +45,7 @@ html {
   
   .brand-list {
     padding-left: 200px;
-    padding-top: 75px;
+    padding-top: 10px;
   }
   
   .brand-subtitle {
@@ -67,6 +67,9 @@ html {
     padding-left: 350px;
   }
   
+  .tableHead {
+    color: white;
+  }
   /* .footer {
     width: 100%;
     position: fixed;

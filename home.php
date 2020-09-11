@@ -20,7 +20,7 @@ if(!isset($_SESSION['UserLogin'])) {
 }
 
 if(isset($_SESSION['UserLogin'])) {
-    echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
+    echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> | Role: <b> ".$_SESSION['Access']."</b></div> <br>";
 } else {
     echo "Welcome guest!";
 }
@@ -46,27 +46,29 @@ if(isset($_SESSION['UserLogin'])) {
             <h3 class="text-center"> Homepage </h3>
 
             <!-- Button Group User -->
-            <h1> News Feed </h1>
-            <small> View the latest post.</small>
-            <div class="btn-group float-right" role="group" aria-label="Basic example">
-                <a class="btn btn-info float-left" href="/ccitforum/home.php"> News Feed </a>
-                <a class="btn btn-primary float-left" href="/ccitforum/myPosts.php"> My Posts </a>
-                <a class="btn btn-success float-left" href="/ccitforum/accounts.php"> Accounts </a>
-                <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
+            <h1>&nbsp; News Feed </h1>
+            <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  View the latest post.</small>
+            <div class="btn-group float-right font-weight-bold" role="group" aria-label="Basic example">
+                <a class="btn btn-primary float-left font-weight-bold" href="/ccitforum/home.php"> News Feed </a>&nbsp;
+                <a class="btn btn-secondary float-left font-weight-bold" href="/ccitforum/myPosts.php"> My Posts </a>&nbsp;
+                <a class="btn btn-success float-left font-weight-bold" href="/ccitforum/accounts.php"> Accounts </a>&nbsp;
+                <a class="btn btn-danger float-left font-weight-bold" href="/ccitforum/logout.php"> Logout </a>
             </div>
+            <br>
+            <br>
             <hr>
 
             <!-- Compose Post Section -->
-            <h3> Compose Post </h3>
+            <h3>&nbsp;&nbsp; Compose Post </h3>
             <div class="card">
                 <div class="card-body">
                     <form action="addPost.php" method="post" onSubmit="return alert('Your post was posted!')">
                         <div class="form-group">
-                            <label for="name">Topic </label>
+                            <label for="name">&nbsp;&nbsp;Topic </label>
                             <input type="text" class="form-control" name="postSubject" required>
                         </div>
                         <div class="form-group">
-                            <label for="address">Body</label>
+                            <label for="address">&nbsp;&nbsp;Body</label>
                             <textarea class="form-control" id="addressTA" rows="3" name="postBody" required"
                                 style="resize:none;"></textarea>
                         </div>
@@ -79,13 +81,13 @@ if(isset($_SESSION['UserLogin'])) {
 
             <!-- Recent Posts -->
             <?php if($posts->num_rows > 0) { ?>
-            <h3> Recent Posts </h3>
+            <h3>&nbsp;&nbsp; Recent Posts </h3>
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"> <?php echo $postRow['subject'] ?></h4>
+                    <h4 class="card-title text-primary"> <?php echo $postRow['subject'] ?></h4>
                     <small class="card-subtitle">
-                        <?php echo "Posted by <b>".$postRow['name'].' </b>'.' '.$postRow['email'].' '.$postRow['dateAdded']  ?>
+                        <?php echo "Posted by <b>".$postRow['name'].' </b> | '.'  '.$postRow['dateAdded']  ?>
                     </small>
                 </div>
                 <div class="card-body">
