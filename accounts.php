@@ -35,6 +35,7 @@ if(isset($_SESSION['UserLogin'])) {
 
     <body>
 
+
         <div class="container">
 
             <h1 class="text-center"> The CCIT Wall </h1>
@@ -101,6 +102,7 @@ if(isset($_SESSION['UserLogin'])) {
                                 href="/ccitforum/details.php?ID=<?php echo $row['userID']?>">View Profile</a>
                         </td>
                         <td> <b> <?php echo $row['userID'];?> </b> </td>
+
                         <td> <?php echo $row['firstName'];?> </td>
                         <td> <?php echo $row['lastName'];?> </td>
                         <td> <?php echo $row['email'];?> </td>
