@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION)) {
+if(!isset($_SESSION)) {
     session_start();
 }
 
@@ -8,8 +8,8 @@ include_once "connections/connection.php";
 
 $con = connection();
 
-if (isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
-    echo "<div class='float-right'> Welcome <b> " . $_SESSION['UserLogin'] . " </b> Role: <b> " . $_SESSION['Access'] . "</b></div> <br>";
+if(isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
+    echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
 } else {
     echo header("Location: home.php");
 }
@@ -23,7 +23,7 @@ if(isset($_POST['submit'])) {
 
     $con->query($sql) or die($con->error);
 
-    echo header("Location: accounts.php");
+   echo header("Location: accounts.php");
 }
 
 ?>
@@ -36,7 +36,6 @@ if(isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New User </title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
@@ -44,7 +43,7 @@ if(isset($_POST['submit'])) {
     <div class="container">
 
         <div class="register">
-            <h1 class="text-center"> CCIT Forum Admin </h1>
+           <h1 class="text-center"> CCIT Forum Admin </h1>
             <h3 class="text-center">Add New User </h1>
             <div class="card">
                 <div class="card-body">
@@ -69,6 +68,7 @@ if(isset($_POST['submit'])) {
                     </form>
                      <a id="loginBtn" class="btn btn-link" href="/ccitforum/"> Back to User's List. </a>
                 </div>
+            </div>
         </div>
 
     </div>
