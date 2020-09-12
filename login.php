@@ -4,6 +4,8 @@ if(!isset($_SESSION)) {
     session_start();
 }
 include_once "connections/connection.php";
+include "validation/validation.php";
+
 $con = connection();
 
 
@@ -30,10 +32,42 @@ if(isset($_POST['login'])) {
 
 // Register POST Action
 if(isset($_POST['register'])) {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    // Empty by default
+    $firstName = "";
+    $lastName = "";
+    $email = "";
+    $password = "";
+
+    // Validation
+    //First Name
+    if(isFirstNameValid($_POST['firstName']) == 1) {
+        $name = formValidate($_POST['firstName']);
+    } else {
+        die("Error: Invalid First Name!");
+    }
+
+     //Last Name
+    if(isNameValid($_POST['lastName']) == 1) {
+        $name = formValidate($_POST['lastName']);
+    } else {
+        die("Error: Invalid Last Name!");
+    }
+
+    // Email
+    if(isEmailValid($_POST['email']) == 1) {
+        $email = formValidate($_POST['email']);
+    } else {
+        die("Error: Invalid Email!");
+    }
+
+    // Password
+    if(isPasswordValid($_POST['password']) == 1) {
+        $password = $_POST['password'];
+    } else {
+        die("Error: Invalid Password!");
+    }
+
+    // For duplicate email checking
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $user = $con->query($sql) or die ($con->error);
     $row = $user -> fetch_assoc();
@@ -50,7 +84,6 @@ if(isset($_POST['register'])) {
         $_SESSION['Access'] = "user";
         $_SESSION['ID'] = $last_id;
         echo header("Location: home.php");  
-        echo "Dito din";
     }
 
     $con->close();

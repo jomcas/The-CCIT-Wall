@@ -50,8 +50,8 @@ if(isset($_SESSION['UserLogin'])) {
                 <a class="btn btn-danger float-left" href="/ccitforum/logout.php"> Logout </a>
             </div>
             <hr>
-
-            <div class="btn-group flot-right" role="group" arial-label="">
+          
+            <div class="btn-group float-right" role="group" arial-label="">
             <!-- ADMIN Add Account Button -->
             <?php if($_SESSION['Access'] == "admin") { ?>
             <a class="btn btn-link float-right" href="/ccitforum/add.php"> Add New Account </a> <br> <br>
@@ -75,7 +75,7 @@ if(isset($_SESSION['UserLogin'])) {
             <!-- Users Table -->
             <table class="table table-striped">
 
-                <thead>
+                <thead class="bg-primary" style="color:white;">
                     <tr>
                         <th scope="col">View Profile</th>
                         <th scope="col">id</th>
@@ -95,6 +95,7 @@ if(isset($_SESSION['UserLogin'])) {
 
                 <tbody>
                 <?php if($users->num_rows > 0) { ?>
+
                     <?php do { ?>
                         <?php if($row['userID'] != $_SESSION['ID']) { ?>
                     <tr>
@@ -128,6 +129,7 @@ if(isset($_SESSION['UserLogin'])) {
                         <?php } ?>
                     <?php } while ($row = $users->fetch_assoc()) ?>
                     <?php } else { echo "<div class='display-4'> No accounts yet! </div>"; } ?>
+
                 </tbody>
 
 
