@@ -94,7 +94,6 @@ if(isset($_SESSION['UserLogin'])) {
                 </thead>
 
                 <tbody>
-                <?php if($users->num_rows > 0) { ?>
 
                     <?php do { ?>
                         <?php if($row['userID'] != $_SESSION['ID']) { ?>
