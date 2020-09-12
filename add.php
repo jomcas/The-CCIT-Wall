@@ -14,14 +14,9 @@ if (isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
     echo header("Location: home.php");
 }
 
-<<<<<<< HEAD
 if(isset($_POST['submit'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
-=======
-if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
->>>>>>> fcee108cb2bd798d98de3a4c45a697c4a4eb5257
     $email = $_POST['email'];
     $password = $_POST['password'];
     $sql = "INSERT INTO `users` (`firstName`,`lastName`,`email`,`password`,`access`) VALUES ('$firstName','$lastName','$email','$password', 'user')";
