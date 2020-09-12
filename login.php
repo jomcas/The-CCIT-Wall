@@ -77,9 +77,16 @@ if(isset($_POST['register'])) {
         echo "Duplicate Email! Try Again";
     } else {
         $insertSql = "INSERT INTO `users` (`firstName`,`lastName`, `email`,`password`,`access`) VALUES ('$firstName', '$lastName', '$email','$password','user')";
-        $con->query($insertSql) or die($con->error);
-        $last_id = $con->insert_id;
-        echo "Umabot Dito";
+   
+
+        // Rejection if it is empty	       
+        if($name == "" || $email == "" || $password = "") {	
+            die("Error: Invalid Input!");	
+        } else {	
+            $con->query($insertSql) or die($con->error);	
+            $last_id = $con->insert_id;	
+        }
+
         $_SESSION['UserLogin'] = $email;
         $_SESSION['Access'] = "user";
         $_SESSION['ID'] = $last_id;
@@ -100,6 +107,7 @@ if(isset($_POST['register'])) {
         <title>Document</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
     </head>
 

@@ -36,6 +36,7 @@ if(isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New User </title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
@@ -45,6 +46,7 @@ if(isset($_POST['submit'])) {
         <div class="register">
            <h1 class="text-center"> CCIT Forum Admin </h1>
             <h3 class="text-center">Add New User </h1>
+            <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/"> Back to User's List. </a><br><br>
             <div class="card">
                 <div class="card-body">
                     <form action="" method="post" onSubmit="return confirm('Do you really want to add this user?'">
@@ -66,7 +68,6 @@ if(isset($_POST['submit'])) {
                         </div>
                         <input type="submit" name="submit" class="btn btn-success float-right" value="Add New User"></input>
                     </form>
-                     <a id="loginBtn" class="btn btn-link" href="/ccitforum/"> Back to User's List. </a>
                 </div>
             </div>
         </div>

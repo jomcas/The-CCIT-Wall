@@ -56,6 +56,8 @@ if(isset($_SESSION['UserLogin'])) {
         <br> <br>
         <!-- <a class="btn btn-dark" href="/ccitforum/index.php"> Back to List </a> <br> -->
 
+        <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/accounts.php"> Back to User's List. </a>	
+        <br><br>
         <div class="card">
             <div class="card-body" <div class="view">
                 <h2> <b>First Name</b> : <?php echo $row['firstName'];?> </h2>
@@ -63,15 +65,16 @@ if(isset($_SESSION['UserLogin'])) {
                 <h2> <b>Email</b> : <?php echo $row['email'];?> </h2>
                 <h2> <b>Access</b>: <?php echo $row['access'];?> </h2>
             </div>
-            <a id="loginBtn" class="btn btn-link" href="/ccitforum/accounts.php"> Back to User's List. </a>
+           
         </div>
 
         <br>
 
         <!-- User's Posts -->
 
-        <?php if($userPosts->num_rows > 0) { ?>
-        <h3> <?php echo $userPostRow['name']?> Posts </h3>
+        <?php if ($userPosts->num_rows > 0) { ?>	        
+            <br>
+            <h3> &nbsp;&nbsp;&nbsp;<?php echo $userPostRow['firstName'] ?>'s Posts </h3>
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
