@@ -5,7 +5,7 @@ function connection() {
     $host = "localhost";
     $username = "root";
     $password = "";
-    $database = "ccitforum2";
+    $database = "ccitDB";
 
     $con = new mysqli($host, $username, $password, $database);
 
@@ -15,6 +15,22 @@ function connection() {
         return $con;
     }
 
-    $conn->close();
+    $con->close();
+}
+
+function DBLessConnection() {
+    $host = "localhost";
+    $username = "root";
+    $password = "";
+
+    $con = new mysqli($host, $username, $password);
+
+    if($con->connect_error) {
+        echo $con->connect_error;
+    } else {
+        return $con;
+    }
+
+    $con->close();
 }
 

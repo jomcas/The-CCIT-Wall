@@ -3,14 +3,14 @@
 function db_setup() {
     include_once "connection.php";
     $con = connection();
-
-    //createDatabase($con);
     return $con;
 }
 
 
-function createDatabase($con) {
-    $sql = "CREATE DATABASE ccitDB2";
+function createDatabase() {
+    include_once "connection.php";
+    $con = DBLessConnection();
+    $sql = "CREATE DATABASE ccitdb";
     $con->query($sql) or die($con->error);
     $con->close();
 }
@@ -25,7 +25,6 @@ function createTables($con) {
             "`password` varchar(50) NOT NULL,".
             "`access` varchar(10) NOT NULL) ";
 
-    echo $usersTable;
     $con->query($usersTable) or die ($con->error);
 
     $postsTable =
@@ -44,8 +43,8 @@ function createTables($con) {
     $con->close();
 }
 
-
 $con = db_setup();
+//createDatabase();
 createTables($con);
 
 ?>
