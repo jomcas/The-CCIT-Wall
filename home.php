@@ -8,7 +8,7 @@ include_once "connections/connection.php";
 
 $con = connection();
 $id = $_SESSION['ID'];
-$postSQL =  "SELECT users.userID, users.name, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
+$postSQL =  "SELECT users.userID, users.firstName, users.lastName, users.email, posts.postID, posts.subject, posts.body, posts.dateAdded ".
             "FROM users JOIN posts ".
             "ON users.userID = posts.userID ".
             "ORDER BY posts.dateAdded DESC"; 
