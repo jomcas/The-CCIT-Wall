@@ -4,12 +4,16 @@ function db_setup() {
     include_once "connection.php";
     $con = connection();
 
-    createDatabase($con);
-    createTables($con);
+    //createDatabase($con);
+    return $con;
 }
 
+$con = db_setup();
+
+createTables($con);
+
 function createDatabase($con) {
-    $sql = "CREATE DATABASE ccitDB";
+    $sql = "CREATE DATABASE ccitDB2";
     $con->query($sql) or die($con->error);
     $con->close();
 }
@@ -22,7 +26,8 @@ function createTables($con) {
             "`email` varchar(50) NOT NULL," +
             "`password` varchar(50) NOT NULL," +
             "`access` varchar(10) NOT NULL) ";
-    $con->query($usersTable) or die ($con->error);
+    echo $usersTable;
+    //$con->query($usersTable) or die ($con->error);
 
     $postsTable =
         "CREATE TABLE `posts` (" +
