@@ -68,10 +68,6 @@ if(isset($_POST['submit'])) {
                                 <input type="name" class="form-control" name="firstName" value="<?php echo $row['firstName']?>">
                             </div>
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="name" class="form-control" name="firstName" value="<?php echo $row['firstName']?>">
-                            </div>
-                            <div class="form-group">
                                 <label for="lastName">Last Name</label>
                                 <input type="name" class="form-control" name="lastName" value="<?php echo $row['lastName']?>">
                             </div>

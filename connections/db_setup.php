@@ -20,12 +20,14 @@ function createTables($con) {
         "CREATE TABLE `users` (".
             "`userID` int AUTO_INCREMENT PRIMARY KEY,".
             "`firstName` varchar(50) NOT NULL,".
-            "`secondName` varchar(50) NOT NULL,".
+            "`lastName` varchar(50) NOT NULL,".
             "`email` varchar(50) NOT NULL,".
             "`password` varchar(50) NOT NULL,".
             "`access` varchar(10) NOT NULL) ";
-
     $con->query($usersTable) or die ($con->error);
+
+    $insertAdmin = "INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `access`) VALUES (NULL, 'Admin', 'Admin', 'admin@admin.com', 'admin123!', 'admin')";
+    $con->query($insertAdmin) or die ($con->error);
 
     $postsTable =
         "CREATE TABLE `posts` (".
@@ -36,15 +38,15 @@ function createTables($con) {
             "`dateAdded` datetime NOT NULL)";
 
     $postsForeignKey = "ALTER TABLE posts ADD FOREIGN KEY (userID) REFERENCES users(userID);";
-
-
     $con->query($postsTable) or die ($con->error);
     $con->query($postsForeignKey) or die ($con->error);
+
     $con->close();
 }
 
+
+createDatabase();
 $con = db_setup();
-//createDatabase();
 createTables($con);
 
 ?>
