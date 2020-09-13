@@ -30,7 +30,7 @@ function formValidate($data) {
     return $data;
 }
 
-echo isFirstNameValid("Cerceas Jr.");
+// echo isFirstNameValid("Cerceas Jr.");
 // echo isEmailValid("jomari");
 // echo isEmailValid("jomari@gmail.com");
 
