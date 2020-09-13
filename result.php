@@ -10,7 +10,7 @@ $con = connection();
 
 $con = connection();
 $search = $_GET['search'];
-$sql = "SELECT * FROM users WHERE name LIKE '$search%' OR email LIKE '$search%' ORDER BY userID";
+$sql = "SELECT * FROM users WHERE firstName LIKE '$search%' OR lastName LIKE '$search%' OR email LIKE '$search%' ORDER BY userID";
 $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
 
