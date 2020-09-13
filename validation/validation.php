@@ -2,7 +2,8 @@
 
 // Registration Validation
 define("EMAIL", "/\S+@\S+\.\S+/"); // Basic Email Format
-define("NAME", "/^[a-z A-Z,.-]{3,16}$/i"); // No Special Characters. Accepts . , -
+define("NAME", "/^[a-z A-Z,.-]{3,16}$/i"); // No Special Characters. Accepts . , -Cers(Additional Regex A-Z for accepting capetilize and 3 min - 16 max for input)
+
 /**
  * ^ Assert position at the start of the line.
  *(?=\P{Ll}*\p{Ll}) Ensure at least one lowercase letter (in any script) exists.
