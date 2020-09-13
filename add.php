@@ -19,7 +19,8 @@ if(isset($_POST['submit'])) {
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $sql = "INSERT INTO `users` (`firstName`,`lastName`,`email`,`password`,`access`) VALUES ('$firstName','$lastName','$email','$password', 'user')";
+    $access = $_POST['access'];
+    $sql = "INSERT INTO `users` (`firstName`,`lastName`,`email`,`password`,`access`) VALUES ('$firstName','$lastName','$email','$password', '$access')";
 
     $con->query($sql) or die($con->error);
 
@@ -66,6 +67,13 @@ if(isset($_POST['submit'])) {
                             <label for="password">Password</label>
                             <input id="pass" type="password" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
                         </div>
+                        <div class="form-group">
+                                <label for="password">Access</label>
+                                <select name="access" class="form-control">
+                                    <option value="user" selected>User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
                         <input type="submit" name="submit" class="btn btn-success float-right" value="Add New User"></input>
                     </form>
                 </div>
