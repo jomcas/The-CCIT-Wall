@@ -57,7 +57,7 @@ if(isset($_SESSION['UserLogin'])) {
         <a id="loginBtn" class="btn btn-link float-right" href="/ccitforum/update.php?ID=<?php echo $id?>"> Edit My Account. </a>
 
         <?php if($_SESSION['Access'] == "admin") { ?>
-        <a class="btn btn-success float-right" href="/ccitforum/add.php"> Add new </a> <br> <br>
+        <a class="btn btn-link float-right" href="/ccitforum/add.php"> Add New Account </a> <br> <br>
         <?php } ?>
         
         <!-- Search Bar -->
@@ -73,8 +73,9 @@ if(isset($_SESSION['UserLogin'])) {
         <!-- Users Table -->
         <table class="table table-striped">
 
+        <?php if($users->num_rows > 0) { ?>
             <thead>
-                    <tr>
+                    <tr class="bg-primary" style="color:white;">
                         <th scope="col">View Profile</th>
                         <th scope="col">id</th>
                         <th scope="col">First Name</th>
@@ -90,9 +91,11 @@ if(isset($_SESSION['UserLogin'])) {
                         <th scope="col">Delete</th>
                         <?php } ?>
                 </thead>
-
+    
             <tbody>
+          
                     <?php do {?>
+                        <?php if($row['userID'] != $_SESSION['ID']) { ?>
                     <tr>
                         <td>
                             <a class="view btn btn-info btn-sm" name="view"
@@ -121,10 +124,12 @@ if(isset($_SESSION['UserLogin'])) {
                         </td>
                         <?php } ?>
                     </tr>
+                        <?php } ?>
                     <?php } while ($row = $users->fetch_assoc()) ?>
+                    <?php } else { echo "<div class='display-4'> No result! </div>"; } ?>
                 </tbody>
         </table>
         <a id="loginBtn" class="btn btn-link float-left" href="/ccitforum/accounts.php"> View All User's List. </a>
-        <div>
+        </div>
 </body>
 <html>
