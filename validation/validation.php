@@ -3,11 +3,15 @@
 // Registration Validation
 define("EMAIL", "/\S+@\S+\.\S+/"); // Basic Email Format
 define("NAME", "/^[a-z ,.-]+$/i"); // No Special Characters. Accepts . , -
-define("PASSWORD", "^(?=.*[0-9])(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=]).*$"); // At least * chars, 1 lowercase, uppercase, number and special character
+define("PASSWORD", "/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/"); // At least * chars, 1 lowercase, uppercase, number and special character
 
 
-// Name Validation
-function isNameValid($name) {
+// Validation
+function isFirstNameValid($name) {
+    return preg_match(NAME, $name);
+}
+
+function isLastNameValid($name) {
     return preg_match(NAME, $name);
 }
 
@@ -26,7 +30,7 @@ function formValidate($data) {
     return $data;
 }
 
-// echo isNameValid("Cerceas Jr.");
+echo isFirstNameValid("Cerceas Jr.");
 // echo isEmailValid("jomari");
 // echo isEmailValid("jomari@gmail.com");
 

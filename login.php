@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION)) {
+if(!isset($_SESSION)) {
     session_start();
 }
 include_once "connections/connection.php";
@@ -10,21 +10,22 @@ $con = connection();
 
 
 // Login POST Action
-if (isset($_POST['login'])) {
+if(isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-    $user = $con->query($sql) or die($con->error);
-    $row = $user->fetch_assoc();
+    $user = $con->query($sql) or die ($con->error);
+    $row = $user -> fetch_assoc();
     $total = $user->num_rows;
 
     if ($total > 0) {
         $_SESSION['UserLogin'] = $row['email'];
         $_SESSION['Access'] = $row['access'];
         $_SESSION['ID'] = $row['userID'];
-        echo header("Location: home.php");
+        echo header("Location: home.php");    
     } else {
         echo "<script> alert('Please try again!') </script>";
+
     }
     $con->close();
 }
@@ -32,16 +33,24 @@ if (isset($_POST['login'])) {
 // Register POST Action
 if(isset($_POST['register'])) {
     // Empty by default
-    $name = "";
+    $firstName = "";
+    $lastName = "";
     $email = "";
     $password = "";
 
     // Validation
-    // Name
-    if(isNameValid($_POST['name']) == 1) {
-        $name = formValidate($_POST['name']);
+    //First Name
+    if(isFirstNameValid($_POST['firstName']) == 1) {
+        $firstName = formValidate($_POST['firstName']);
     } else {
-        die("Error: Invalid Name!");
+        die("Error: Invalid First Name!");
+    }
+
+     //Last Name
+    if(isLastNameValid($_POST['lastName']) == 1) {
+        $lastName = formValidate($_POST['lastName']);
+    } else {
+        die("Error: Invalid Last Name!");
     }
 
     // Email
@@ -58,26 +67,26 @@ if(isset($_POST['register'])) {
         die("Error: Invalid Password!");
     }
 
-
     // For duplicate email checking
     $sql = "SELECT * FROM users WHERE email = '$email'";
-    $user = $con->query($sql) or die($con->error);
-    $row = $user->fetch_assoc();
+    $user = $con->query($sql) or die ($con->error);
+    $row = $user -> fetch_assoc();
     $total = $user->num_rows;
 
-    if ($total > 0) {
+    if($total > 0) {
         echo "Duplicate Email! Try Again";
     } else {
-        $insertSql = "INSERT INTO `users` (`name`,`email`,`password`,`access`) VALUES ('$name','$email','$password','user')";
-        
-        // Rejection if it is empty
-        if($name == "" || $email == "" || $password = "") {
-            die("Error: Invalid Input!");
-        } else {
-            $con->query($insertSql) or die($con->error);
-            $last_id = $con->insert_id;
+        $insertSql = "INSERT INTO `users` (`firstName`,`lastName`, `email`,`password`,`access`) VALUES ('$firstName', '$lastName', '$email','$password','user')";
+   
+
+        // Rejection if it is empty	       
+        if($firstName == "" || $lastName == "" || $email == "" || $password = "") {	
+            die("Error: Invalid Input!");	
+        } else {	
+            $con->query($insertSql) or die($con->error);	
+            $last_id = $con->insert_id;	
         }
-        
+
         $_SESSION['UserLogin'] = $email;
         $_SESSION['Access'] = "user";
         $_SESSION['ID'] = $last_id;
@@ -99,10 +108,10 @@ if(isset($_POST['register'])) {
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 </head>
 
 <body>
-
     <div class="container-fluid">
         <div class="row">
 
@@ -115,6 +124,10 @@ if(isset($_POST['register'])) {
                         <li>Communicate with other CCIT students!</li>
                         <li>Be as one!</li>
                     </ul>
+                </div>
+
+                <div class="brand-subtitle">
+                    <h4>"This is the subtitle put it here."</h3>
                 </div>
 
                 <br><br><br>
@@ -131,7 +144,7 @@ if(isset($_POST['register'])) {
                         <h1 class="text-center">Sign In.</h1>
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST" accept-charset="utf-8">
+                                <form action="" method="POST">
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control" name="email">
@@ -140,7 +153,9 @@ if(isset($_POST['register'])) {
                                         <label for="password">Password</label>
                                         <input type="password" class="form-control" name="password">
                                     </div>
-                                    <input type="submit" name="login" class="btn btn-primary float-right" value="Sign In"></input>
+                                    
+                                    <input type="submit" name="login" class="btn btn-primary float-right"
+                                        value="Sign In"></input>
                                 </form>
                                 <p> Not yet a member? <button id="registerBtn" class="btn btn-link"> Sign Up Now!
                                     </button></p>
@@ -148,32 +163,38 @@ if(isset($_POST['register'])) {
                         </div>
                     </div>
 
-                        <!-- Register Section -->
-                        <div class="register">
-                            <h5 class="text-muted text-center">National University - Manila</h5>
-                            <p class="text-muted">College of Computing and Information Technologies</p>
-                            <h1 class="text-center">Sign Up.</h1>
-                            <div class="card">
-                                <div class="card-body">
-                                    <form action="" method="POST">
-                                        <!-- Divide Name into Last and First Name -->
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="name" class="form-control" name="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" name="email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" class="form-control" name="password">
-                                        </div>
-                                        <input type="submit" name="register" class="btn btn-primary float-right"
-                                            value="Sign Up"></input>
-                                    </form>
-                                    <p> Already a member? <button id="loginBtn" class="btn btn-link"> Sign In Here.                                    </button></p>
-                                </div>
+                    <!-- Register Section -->
+                    <div class="register">
+                        <h5 class="text-muted text-center">National University - Manila</h5>
+                        <p class="text-muted">College of Computing and Information Technologies</p>
+                        <h1 class="text-center">Sign Up.</h1>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="" method="POST">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="name" class="form-control" name="firstName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="name" class="form-control" name="lastName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" name="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" name="password">
+                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                    At least 8 characters long, 1 letter, 1 number, <br> 1 special character and SHOULD NOT start with a special character
+                                    </small>
+                                    </div>
+                                    <input type="submit" name="register" class="btn btn-primary float-right"
+                                        value="Sign Up"></input>
+                                </form>
+                                <p> Already a member? <button id="loginBtn" class="btn btn-link"> Sign In Here.
+                                    </button></p>
                             </div>
                         </div>
                     </div>
@@ -200,13 +221,13 @@ if(isset($_POST['register'])) {
     <script>
         $(".register").hide();
 
-        $("#registerBtn").click(function() {
+        $("#registerBtn").click(function () {
             $(".login").hide();
             $(".register").show();
             console.log("anyare");
         })
 
-        $("#loginBtn").click(function() {
+        $("#loginBtn").click(function () {
             $(".register").hide();
             $(".login").show();
             console.log("anyare");
