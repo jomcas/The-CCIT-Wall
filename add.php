@@ -5,7 +5,7 @@ if(!isset($_SESSION)) {
 }
 
 include_once "connections/connection.php";
-
+include "validation/validation.php";
 $con = connection();
 
 if(isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
@@ -15,10 +15,34 @@ if(isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
 }
 
 if(isset($_POST['submit'])) {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+   // Validation
+    //First Name
+    if(isFirstNameValid($_POST['firstName']) == 1) {
+        $firstName = formValidate($_POST['firstName']);
+    } else {
+        die("Error: Invalid First Name!");
+    }
+
+     //Last Name
+    if(isLastNameValid($_POST['lastName']) == 1) {
+        $lastName = formValidate($_POST['lastName']);
+    } else {
+        die("Error: Invalid Last Name!");
+    }
+
+    // Email
+    if(isEmailValid($_POST['email']) == 1) {
+        $email = formValidate($_POST['email']);
+    } else {
+        die("Error: Invalid Email!");
+    }
+
+    // Password
+    if(isPasswordValid($_POST['password']) == 1) {
+        $password = $_POST['password'];
+    } else {
+        die("Error: Invalid Password!");
+    }
     $access = $_POST['access'];
     $sql = "INSERT INTO `users` (`firstName`,`lastName`,`email`,`password`,`access`) VALUES ('$firstName','$lastName','$email','$password', '$access')";
 
