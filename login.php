@@ -185,7 +185,7 @@ if(isset($_POST['register'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control" name="password">
+                                        <input id="pass" type="password" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
                                         <small id="passwordHelpBlock" class="form-text text-muted">
                                     At least 8 characters long, 1 letter, 1 number, <br> 1 special character and SHOULD NOT start with a special character
                                     </small>
@@ -232,6 +232,15 @@ if(isset($_POST['register'])) {
             $(".login").show();
             console.log("anyare");
         })
+
+        function unhidePassword() {
+            var x = document.getElementById("pass");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
     </script>
 </body>
 

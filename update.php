@@ -78,8 +78,9 @@ if(isset($_POST['submit'])) {
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" name="password"
+                                <input id="pass" type="password" class="form-control" name="password"
                                     value="<?php echo $row['password']?>">
+                             <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
                             </div>
                             <!-- Access -->
                             <?php if($_SESSION['Access'] == "admin") { ?>
@@ -105,6 +106,21 @@ if(isset($_POST['submit'])) {
         </div>
 
     </div>
+
+    <!-- JQuery library -->
+    <script src="js/jquery/jquery.min.js"></script>
+
+    <!-- JQuery Script -->
+    <script>
+        function unhidePassword() {
+            var x = document.getElementById("pass");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
 </body>
 
 </html>
