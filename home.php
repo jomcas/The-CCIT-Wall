@@ -88,7 +88,7 @@ if(isset($_SESSION['UserLogin'])) {
                 <div class="card-header">
                     <h4 class="card-title text-primary"> <?php echo $postRow['subject'] ?></h4>
                     <small class="card-subtitle">
-                        <?php echo "Posted by <b>".$postRow['name'].' </b> | '.'  '.$postRow['dateAdded']  ?>
+                        <?php echo "Posted by <b>".$postRow['firstName'].' '.$postRow['lastName'].' </b> | '.'  '.$postRow['dateAdded']  ?>
                     </small>
                 </div>
                 <div class="card-body">

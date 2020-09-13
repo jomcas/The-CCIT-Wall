@@ -57,7 +57,6 @@ if(isset($_SESSION['UserLogin'])) {
             </div>	
             <br>	
             <br>
-            </div>
             <hr>
 
             <!-- Compose Post Section -->
@@ -109,5 +108,6 @@ if(isset($_SESSION['UserLogin'])) {
             </div> <br>
             <?php } while($userPostRow = $userPosts->fetch_assoc()) ?>
             <?php } else { echo "<div class='display-4'> No posts yet! </div>"; } ?>
+            </div>
     </body>
-<html>
+</html>
