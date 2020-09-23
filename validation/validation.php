@@ -14,9 +14,10 @@ define("NAME", "/^[a-z A-Z,.-]{3,16}$/i"); // No Special Characters. Accepts . ,
  *$ Assert position at the end of the line.
  *Reference: https://stackoverflow.com/questions/48345922/reference-password-validation
  */
-define("PASSWORD", "/^(?=\P{Ll}*\p{Ll})(?=\P{Lu}*\p{Lu})(?=\P{N}*\p{N})(?=[\p{L}\p{N}]*[^\p{L}\p{N}])[\s\S]{7,19}$/"); 
 
-//^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$ (At least * chars, 1 lowercase, uppercase, number and special character)
+define("PASSWORD", "/^(?=\P{Ll}*\p{Ll})(?=\P{Lu}*\p{Lu})(?=\P{N}*\p{N})(?=[\p{L}\p{N}]*[^\p{L}\p{N}])[\s\S]{8,19}$/"); 
+
+//^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{8,19}$ (At least * chars, 1 lowercase, uppercase, number and special character)
 
 
 // Validation
