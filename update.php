@@ -59,7 +59,12 @@ if(isset($_POST['submit'])) {
 
     $con->query($sql) or die($con->error);
 
-    echo header("Location: accounts.php");
+    //logout if the info was change on the own account.
+    if($_SESSION['ID'] == $id) {
+        echo header("Location: logout.php");
+    } else {
+        echo header("Location: accounts.php");
+    }
 }
 ?>
 
@@ -86,7 +91,7 @@ if(isset($_POST['submit'])) {
                 <div class="card">
                     <div class="card-body">
                         <form action="" method="post"
-                            onSubmit="return confirm('Do you really want to update this user')">
+                            onSubmit="return confirm('Do you really want to update this user? You might be logged out if it is successful!')">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
                                 <input type="name" class="form-control" name="firstName" value="<?php echo $row['firstName']?>">

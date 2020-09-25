@@ -22,7 +22,7 @@ function createTables($con) {
             "`firstName` varchar(50) NOT NULL,".
             "`lastName` varchar(50) NOT NULL,".
             "`email` varchar(50) NOT NULL,".
-            "`password` varchar(50) NOT NULL,".
+            "`password` varchar(255) NOT NULL,".
             "`access` varchar(10) NOT NULL) ";
     $con->query($usersTable) or die ($con->error);
 

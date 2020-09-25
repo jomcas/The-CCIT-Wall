@@ -1,4 +1,7 @@
 <?php
+    
+        //for error messages
+        $loginErrorMsg = "";
 
 if(!isset($_SESSION)) {
     session_start();
@@ -24,8 +27,7 @@ if(isset($_POST['login'])) {
         $_SESSION['ID'] = $row['userID'];
         echo header("Location: home.php");    
     } else {
-        echo "<script> alert('Please try again!') </script>";
-
+        $loginErrorMsg = "Invalid username and/or password! Please try again!";
     }
     $con->close();
 }
@@ -37,6 +39,10 @@ if(isset($_POST['register'])) {
     $lastName = "";
     $email = "";
     $password = "";
+
+    if($password != ""){
+        $hash = password_hash(`$password`, PASSWORD_BCRYPT);
+    }
 
     // Validation
     //First Name
@@ -76,7 +82,7 @@ if(isset($_POST['register'])) {
     if($total > 0) {
         echo "Duplicate Email! Try Again";
     } else {
-        $insertSql = "INSERT INTO `users` (`firstName`,`lastName`, `email`,`password`,`access`) VALUES ('$firstName', '$lastName', '$email','$password','user')";
+        $insertSql = "INSERT INTO `users` (`firstName`,`lastName`, `email`,`password`,`access`) VALUES ('$firstName', '$lastName', '$email','$hash','user')";
    
 
         // Rejection if it is empty	       
@@ -147,16 +153,17 @@ if(isset($_POST['register'])) {
                                 <form action="" method="POST">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email">
+                                        <input type="email" autocomplete="on" class="form-control" name="email">
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control" name="password">
+                                        <input type="password" autocomplete="off" class="form-control" name="password">
                                     </div>
                                     
                                     <input type="submit" name="login" class="btn btn-primary float-right"
                                         value="Sign In"></input>
                                 </form>
+                                <?php if($loginErrorMsg != "") echo $loginErrorMsg . "<br>"; ?>
                                 <p> Not yet a member? <button id="registerBtn" class="btn btn-link"> Sign Up Now!
                                     </button></p>
                             </div>
@@ -181,13 +188,13 @@ if(isset($_POST['register'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email">
+                                        <input type="email" autocomplete="off" class="form-control" name="email">
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input id="pass" type="password" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
+                                        <input id="pass" type="password" autocomplete="off" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
                                         <small id="passwordHelpBlock" class="form-text text-muted">
-                                    At least 8 characters long, 1 letter, 1 number, <br> 1 special character and SHOULD NOT start with a special character
+                                    At least 8 characters long, <br> contains at least 1 uppercase, 1 lowercase, 1 number, <br> 1 special character and SHOULD NOT start with a special character
                                     </small>
                                     </div>
                                     <input type="submit" name="register" class="btn btn-primary float-right"
