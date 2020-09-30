@@ -47,6 +47,8 @@ if(isset($_POST['submit'])) {
     // Password
     if(isPasswordValid($_POST['password']) == 1) {
         $password = $_POST['password'];
+        $hash = password_hash(`$password`, PASSWORD_BCRYPT);
+        
     } else {
         die("Error: Invalid Password!");
     }
@@ -55,7 +57,7 @@ if(isset($_POST['submit'])) {
     } else {
         $access = $_POST['access'];
     }
-    $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
+    $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `password` = '$hash', `access` = '$access' WHERE `userID` = $id";
 
     $con->query($sql) or die($con->error);
 
