@@ -78,7 +78,7 @@ if(isset($_SESSION['UserLogin'])) {
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"> <?php echo $userPostRow['subject'] ?></h4>
+                    <h4 class="card-title text-primary"> <?php echo $userPostRow['subject'] ?></h4>
                     <small class="card-subtitle">
                         <?php echo "Posted by <b>".$userPostRow['firstName'].' '.$userPostRow['lastName'].' </b>'.' '.$userPostRow['email'].' '.$userPostRow['dateAdded']  ?>
                     </small>

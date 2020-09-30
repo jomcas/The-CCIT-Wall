@@ -87,7 +87,7 @@ if(isset($_SESSION['UserLogin'])) {
             <?php do { ?>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title float-"> <?php echo $userPostRow['subject'] ?></h4>
+                    <h4 class="card-title text-primary"> <?php echo $userPostRow['subject'] ?></h4>
 
                     <!-- In Progress -->
                     <form action="delete.php" onSubmit="return confirm('Do you really want to delete this post?')" method="post" accept-charset="utf-8">
