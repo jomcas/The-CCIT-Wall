@@ -75,7 +75,7 @@ if(isset($_POST['submit'])) {
     } else {
         $access = $_POST['access'];
     }
-
+    session_regenerate_id(true);// 02/10/2020
     $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
 
     $con->query($sql) or die($con->error);
