@@ -18,16 +18,24 @@ $con = connection();
 if(isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+
     $user = $con->query($sql) or die ($con->error);
     $row = $user -> fetch_assoc();
     $total = $user->num_rows;
 
     if ($total > 0) {
-        $_SESSION['UserLogin'] = $row['email'];
-        $_SESSION['Access'] = $row['access'];
-        $_SESSION['ID'] = $row['userID'];
-        echo header("Location: home.php");    
+
+        $db_password = $row['password'];
+
+        if(password_verify($password, $db_password)) {
+            $_SESSION['UserLogin'] = $row['email'];
+            $_SESSION['Access'] = $row['access'];
+            $_SESSION['ID'] = $row['userID'];
+            echo header("Location: home.php");    
+        } 
+ 
     } else {
         $loginErrorMsg = "Invalid username and/or password! Please try again!";
         logging("ERROR","Invalid username or password");
@@ -41,11 +49,7 @@ if(isset($_POST['register'])) {
     $firstName = "";
     $lastName = "";
     $email = "";
-    $password = "";
-
-    if($password != ""){
-        $hash = password_hash(`$password`, PASSWORD_BCRYPT);
-    }
+    $password = '';
 
     // Validation
     //First Name
@@ -76,6 +80,11 @@ if(isset($_POST['register'])) {
         die("Error: Invalid Password!");
     }
 
+    
+    if($password != ""){
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+    }
+    
     // For duplicate email checking
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $user = $con->query($sql) or die ($con->error);
@@ -160,7 +169,7 @@ if(isset($_POST['register'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" autocomplete="off" class="form-control" name="password">
+                                        <input id="pass" type="password" autocomplete="off" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
                                     </div>
                                     
                                     <input type="submit" name="login" class="btn btn-primary float-right"
@@ -195,7 +204,7 @@ if(isset($_POST['register'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input id="pass" type="password" autocomplete="off" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
+                                        <input id="pass2" type="password" autocomplete="off" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
                                         <small id="passwordHelpBlock" class="form-text text-muted">
                                     At least 8 characters long, <br> contains at least 1 uppercase, 1 lowercase, 1 number, <br> 1 special character and SHOULD NOT start with a special character
                                     </small>
@@ -249,6 +258,13 @@ if(isset($_POST['register'])) {
                 x.type = "text";
             } else {
                 x.type = "password";
+            }
+
+            var y = document.getElementById("pass2");
+            if (y.type === "password") {
+                y.type = "text";
+            } else {
+                y.type = "password";
             }
         }
     </script>

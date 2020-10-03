@@ -22,6 +22,13 @@ if((isset($_SESSION['Access']) && $_SESSION['Access'] == "admin" || $_SESSION['I
 }
 
 if(isset($_POST['submit'])) {
+
+    // Empty by default
+    $firstName = "";
+    $lastName = "";
+    $email = "";
+    $password = '';
+
    // Validation
     //First Name
     if(isFirstNameValid($_POST['firstName']) == 1) {
@@ -44,17 +51,31 @@ if(isset($_POST['submit'])) {
         die("Error: Invalid Email!");
     }
 
-    // Password
-    if(isPasswordValid($_POST['password']) == 1) {
-        $password = $_POST['password'];
-    } else {
-        die("Error: Invalid Password!");
-    }
+      // Changing password
+      $oldPassword = $_POST['old-pass'];
+      $newPassword = $_POST['new-pass'];
+      $confirmPassword = $_POST['confirm-new-pass'];
+    
+      echo $confirmPassword;
+
+      if(password_verify($oldPassword, $row['password']) && $newPassword == $confirmPassword) {
+          if(isPasswordValid($_POST['new-pass']) == 1) {
+              $password = $_POST['new-pass'];
+              $password = password_hash($password, PASSWORD_BCRYPT);
+          } else {
+              die("Error: Invalid Password!");
+          }
+      } else {
+          die("Error: Wrong Old Password or New Password doesn't match to the Confirm Password!");
+      }
+
+
     if($_POST['access'] == "") {
         $access = "user";
     } else {
         $access = $_POST['access'];
     }
+
     $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
 
     $con->query($sql) or die($con->error);
@@ -65,6 +86,9 @@ if(isset($_POST['submit'])) {
     } else {
         echo header("Location: accounts.php");
     }
+
+
+  
 }
 ?>
 
@@ -86,7 +110,8 @@ if(isset($_POST['submit'])) {
         <div class="register">
             <h1 class="text-center"> CCIT Forum Admin </h1>
             <h3 class="text-center">Edit User </h1>
-            <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/accounts.php"> Back to User's List. </a>	
+                <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/accounts.php"> Back to User's List.
+                </a>
                 <br><br>
                 <div class="card">
                     <div class="card-body">
@@ -94,22 +119,40 @@ if(isset($_POST['submit'])) {
                             onSubmit="return confirm('Do you really want to update this user? You might be logged out if it is successful!')">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="name" class="form-control" name="firstName" value="<?php echo $row['firstName']?>">
+                                <input type="name" class="form-control" name="firstName"
+                                    value="<?php echo $row['firstName']?>">
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="name" class="form-control" name="lastName" value="<?php echo $row['lastName']?>">
+                                <input type="name" class="form-control" name="lastName"
+                                    value="<?php echo $row['lastName']?>">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" name="email"
                                     value="<?php echo $row['email']?>">
                             </div>
+
+                            <!-- Edit this part that it doesnt retrieve the hashed password but just ask if they want to apply for new password -->
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input id="pass" type="password" class="form-control" name="password"
-                                    value="<?php echo $row['password']?>">
-                             <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
+
+                                <!-- Create 3 input for enter old password, new password, confirm password -->
+
+                                <label for="password">Change Password</label>
+
+                                <input id="pass1" type="password" class="form-control" name="old-pass"
+                                    value="" placeholder="Enter Old Password">
+                                <input type="checkbox" onclick="unhidePassword1()"> Show Password </input>
+
+                                <input id="pass2" type="password" class="form-control" name="new-pass"
+                                    value="" placeholder="Enter New Password">
+                                <input type="checkbox" onclick="unhidePassword2()"> Show Password </input>
+
+                                <input id="pass3" type="password" class="form-control" name="confirm-new-pass"
+                                    value="" placeholder="Confirm New Password">
+                                <input type="checkbox" onclick="unhidePassword3()" > Show Password </input>
+                            
+
                             </div>
                             <!-- Access -->
                             <?php if($_SESSION['Access'] == "admin") { ?>
@@ -141,14 +184,35 @@ if(isset($_POST['submit'])) {
 
     <!-- JQuery Script -->
     <script>
-        function unhidePassword() {
-            var x = document.getElementById("pass");
+        function unhidePassword1() {
+            var x = document.getElementById("pass1");
             if (x.type === "password") {
                 x.type = "text";
             } else {
                 x.type = "password";
             }
         }
+
+        function unhidePassword2() {
+            var y = document.getElementById("pass2");
+            if (y.type === "password") {
+                y.type = "text";
+            } else {
+                y.type = "password";
+            }
+        }
+
+        function unhidePassword3() {
+            var z = document.getElementById("pass3");
+            if (z.type === "password") {
+                z.type = "text";
+            } else {
+                z.type = "password";
+            }
+        }
+         
+            
+
     </script>
 </body>
 

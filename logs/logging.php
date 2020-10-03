@@ -8,8 +8,6 @@ function logging($type, $message) {
     // Parse json file to array
     $logs = file_get_contents("log.json");
 
-    echo $logs;
-
     if(!file_exists('log.json')) {
         file_put_contents('log.json','');
     }
@@ -18,7 +16,6 @@ function logging($type, $message) {
    
     // Decode and convert it into an array
     $jsonArray = json_decode($logs, true);
-    echo $jsonArray;
      $log_data = array(
         'visitor_session_id' => session_id(),
         'ip' => $_SERVER['REMOTE_ADDR'],
