@@ -30,6 +30,9 @@ if(isset($_POST['login'])) {
         $db_password = $row['password'];
 
         if(password_verify($password, $db_password)) {
+         session_destroy();//destroy first 02/10/2020
+        session_start();//start again 02/10/2020
+        session_regenerate_id(true); // regenerate a new identifier 02/10/2020
             $_SESSION['UserLogin'] = $row['email'];
             $_SESSION['Access'] = $row['access'];
             $_SESSION['ID'] = $row['userID'];
@@ -104,7 +107,9 @@ if(isset($_POST['register'])) {
             $con->query($insertSql) or die($con->error);	
             $last_id = $con->insert_id;	
         }
-
+        session_destroy();//destroy first 02/10/2020
+        session_start();//start again 02/10/2020
+        session_regenerate_id(true); // regenerate a new identifier 02/10/2020
         $_SESSION['UserLogin'] = $email;
         $_SESSION['Access'] = "user";
         $_SESSION['ID'] = $last_id;
