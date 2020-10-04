@@ -51,7 +51,10 @@ function createTables($con) {
         "`Message` varchar(255) NOT NULL)";
     $con->query($syslogsTable) or die ($con->error);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f010f17425f66f349d61f716a4a1bdc9921a17a
     $con->close();
 }
 
