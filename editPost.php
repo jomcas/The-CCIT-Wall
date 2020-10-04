@@ -11,7 +11,6 @@ $con = connection();
 $id = $_GET['ID'];
 $userID = $_SESSION['ID'];
 
-
 $sql = "SELECT * FROM posts WHERE postID = '$id'";
 $posts = $con->query($sql) or die($con->error);
 $row = $posts->fetch_assoc();
