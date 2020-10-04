@@ -27,7 +27,7 @@ function createTables($con) {
     $con->query($usersTable) or die ($con->error);
 
     $password = password_hash('Admin123!', PASSWORD_BCRYPT);
-    $insertAdmin = "INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `access`) VALUES (NULL, 'Admin', 'Admin', 'admin@admin.com', $password, 'admin')";
+    $insertAdmin = "INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `access`) VALUES (NULL, 'Admin', 'Admin', 'admin@admin.com', '$password', 'admin')";
     $con->query($insertAdmin) or die ($con->error);
 
     $postsTable =
