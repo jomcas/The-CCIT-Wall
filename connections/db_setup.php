@@ -42,6 +42,16 @@ function createTables($con) {
     $con->query($postsTable) or die ($con->error);
     $con->query($postsForeignKey) or die ($con->error);
 
+    $syslogsTable =
+    "CREATE TABLE `syslogs` (".
+        "`Log_ID` int AUTO_INCREMENT PRIMARY KEY,".
+        "`Log_Type` varchar(10) NOT NULL,".
+        "`Level` int(11) NOT NULL,".
+        "`Timestamp` datetime NOT NULL,".
+        "`Message` varchar(255) NOT NULL)";
+    $con->query($syslogsTable) or die ($con->error);
+
+
     $con->close();
 }
 
