@@ -30,15 +30,16 @@ if(isset($_POST['login'])) {
         $db_password = $row['password'];
 
         if(password_verify($password, $db_password)) {
-         session_destroy();//destroy first 02/10/2020
+        session_destroy();//destroy first 02/10/2020
         session_start();//start again 02/10/2020
         session_regenerate_id(true); // regenerate a new identifier 02/10/2020
             $_SESSION['UserLogin'] = $row['email'];
             $_SESSION['Access'] = $row['access'];
             $_SESSION['ID'] = $row['userID'];
             echo header("Location: home.php");    
-        } 
- 
+        } else{
+            $loginErrorMsg = "Invalid username and/or password! Please try again!";
+        }
     } else {
         $loginErrorMsg = "Invalid username and/or password! Please try again!";
         logging("ERROR","Invalid username or password");
