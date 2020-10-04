@@ -10,7 +10,7 @@ if(!isset($_SESSION)) {
 include_once "connections/connection.php";
 include "validation/validation.php";
 include "errorhandler/errorhandler.php";
-
+include "errorhandler/sql_logging.php";
 $con = connection();
 
 
@@ -50,7 +50,11 @@ if(isset($_POST['login'])) {
     $con->close();
 }
 }catch(customException $e){
+    
     $loginErrorMsg=$e->errorMessage();
+
+    // Insert A Log for A Login Error
+    insertLog("ERROR", 1, "Invalid Input Credentials During Login");
 }
 
 
@@ -113,6 +117,7 @@ if(isset($_POST['register'])) {
         // Rejection if it is empty	       
         if($firstName == "" || $lastName == "" || $email == "" || $password = "") {	
             throw new customException("Error: Invalid Input!");	
+            
         } else {	
             $con->query($insertSql) or die($con->error);	
             $last_id = $con->insert_id;	
