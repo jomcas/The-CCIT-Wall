@@ -17,17 +17,21 @@ $row = $posts->fetch_assoc();
 
 
 // Can access the page if the posts.userID = users.userID
-if($row['userID'] == $userID) {
+if($row['userID'] == $userID && $row['postID'] == $id) {
     echo "<div class='float-right'> Welcome <b> ".$_SESSION['UserLogin']." </b> Role: <b> ".$_SESSION['Access']."</b></div> <br>";
  } else {
+<<<<<<< HEAD
      echo header("Location: myPosts.php");
+=======
+    echo header("Location: myPosts.php");
+>>>>>>> 0f887669a91f3534f6d86e24340179459eba1803
 }
+
 
 if(isset($_POST['submit'])) {
     $subject = $_POST['subject'];
     $body = $_POST['body'];
     $sql = "UPDATE `posts` SET `subject` = '$subject', `body` = '$body' WHERE `userID` = $userID AND `postID` = $id";
-
     $con->query($sql) or die($con->error);
 
     echo header("Location: myPosts.php");
