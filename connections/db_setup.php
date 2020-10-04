@@ -51,9 +51,9 @@ function createTables($con) {
         "`Message` varchar(255) NOT NULL)";
     $con->query($syslogsTable) or die ($con->error);
 
-
     $con->close();
 }
+
 
 
 createDatabase();
@@ -72,7 +72,7 @@ createTables($con);
 </head>
 
 <body>
-    <p> Database Created! <button class="btn btn-link"> Go to Login!
+    <p> Database Created! <a class="btn btn-link" href="/"> Go to Login!
         </button></p>
 </body>
 
