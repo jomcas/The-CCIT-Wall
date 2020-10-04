@@ -9,7 +9,6 @@ if(!isset($_SESSION)) {
 
 include_once "connections/connection.php";
 include "validation/validation.php";
-include "logs/logging.php";
 include "errorhandler/errorhandler.php";
 
 $con = connection();
@@ -52,7 +51,6 @@ if(isset($_POST['login'])) {
 }
 }catch(customException $e){
     $loginErrorMsg=$e->errorMessage();
-    logging("ERROR","Invalid username or password");
 }
 
 
