@@ -29,27 +29,31 @@ if(isset($_POST['submit'])) {
     $email = "";
     $password = '';
 
-   // Validation
+   /// Validation
     //First Name
     if(isFirstNameValid($_POST['firstName']) == 1) {
         $firstName = formValidate($_POST['firstName']);
     } else {
-        die("Error: Invalid First Name!");
+        throw new customException("Error: Invalid First Name!");
+        insertLog("ERROR", 1, "First Name Input Validation Error");
     }
 
      //Last Name
     if(isLastNameValid($_POST['lastName']) == 1) {
         $lastName = formValidate($_POST['lastName']);
     } else {
-        die("Error: Invalid Last Name!");
+        throw new customException("Error: Invalid Last Name!");
+        insertLog("ERROR", 1, "Last Name Input Validation Error");
     }
 
     // Email
     if(isEmailValid($_POST['email']) == 1) {
         $email = formValidate($_POST['email']);
     } else {
-        die("Error: Invalid Email!");
+        throw new customException("Error: Invalid Email!");
+        insertLog("ERROR", 1, "Email Input Validation Error");
     }
+
 
       // Changing password
       $oldPassword = $_POST['old-pass'];
@@ -66,8 +70,9 @@ if(isset($_POST['submit'])) {
               die("Error: Invalid Password!");
           }
       } else {
-          die("Error: Wrong Old Password or New Password doesn't match to the Confirm Password!");
-      }
+          die("Error: Wrong Old Password or New Password doesn't match to the Confirm Password!"); 
+           insertLog("ERROR", 1, "Change Password Validation Error");
+        }
 
 
     if($_POST['access'] == "") {
@@ -79,6 +84,9 @@ if(isset($_POST['submit'])) {
     $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
 
     $con->query($sql) or die($con->error);
+
+    $last_id = $con->insert_id;	
+    insertLog("INFO", 1, " User ID ".$_SESSION['ID']." edit an account with an ID of ".$last_id);
 
     //logout if the info was change on the own account.
     if($_SESSION['ID'] == $id) {

@@ -17,6 +17,9 @@ define("NAME", "/^[a-z A-Z,.-]{3,16}$/i"); // No Special Characters. Accepts . ,
 
 define("PASSWORD", "/^(?=\P{Ll}*\p{Ll})(?=\P{Lu}*\p{Lu})(?=\P{N}*\p{N})(?=[\p{L}\p{N}]*[^\p{L}\p{N}])[\s\S]{8,19}$/"); 
 
+define("SUBJECT", ""); // CERCEAS HANAPAN MO KO NG REGEX NA 4-15 characters yung range, pede numbers, tapos bawal special characters except ? ! _ -
+define("BODY", ""); // CERCEAS IKAW MAGISIP NG LIMITATION DITO BASTA MAY RANGE DAPAT TAPOS GAWAN MO NA DIN REGEX HEHEHEHE
+
 //^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{8,19}$ (At least * chars, 1 lowercase, uppercase, number and special character)
 
 
@@ -37,6 +40,13 @@ function isPasswordValid($password) {
     return preg_match(PASSWORD, $password);
 }
 
+function isSubjectValid($subject) {
+    return preg_match(SUBJECT, $subject);
+}
+
+function isBodyValid($body) {
+    return preg_match(BODY, $body);
+}
 function formValidate($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
