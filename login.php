@@ -41,9 +41,9 @@ if(isset($_POST['login'])) {
             $_SESSION['Access'] = $row['access'];
             $_SESSION['ID'] = $row['userID'];
             echo header("Location: home.php");    
-
-        // Login Success log
-        insertLog("INFO", 0, "User ID: ".$_SESSION['ID']." successfully login to the system");
+        
+            // Insert A Log for A Login Success
+         insertLog("Success", 0, "Successful login");
         } else{
             throw new customException("Invalid username and/or password! Please try again!");
             insertLog("ERROR", 1, "Invalid Input Credentials During Login");
