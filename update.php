@@ -31,27 +31,28 @@ if(isset($_POST['submit'])) {
 
    /// Validation
     //First Name
+    try{
     if(isFirstNameValid($_POST['firstName']) == 1) {
         $firstName = formValidate($_POST['firstName']);
     } else {
-        throw new customException("Error: Invalid First Name!");
-        insertLog("ERROR", 1, "First Name Input Validation Error");
+        echo "Error: Invalid First Name!";
+        throw new customException("First Name Input Validation Error",1);
     }
 
      //Last Name
     if(isLastNameValid($_POST['lastName']) == 1) {
         $lastName = formValidate($_POST['lastName']);
     } else {
-        throw new customException("Error: Invalid Last Name!");
-        insertLog("ERROR", 1, "Last Name Input Validation Error");
+        echo "Error: Invalid Last Name!";
+        throw new customException("Last Name Input Validation Error",1);
     }
 
     // Email
     if(isEmailValid($_POST['email']) == 1) {
         $email = formValidate($_POST['email']);
     } else {
-        throw new customException("Error: Invalid Email!");
-        insertLog("ERROR", 1, "Email Input Validation Error");
+        echo "Error: Invalid Email!";
+        throw new customException("Email Input Validation Error",1);
     }
 
 
@@ -67,12 +68,16 @@ if(isset($_POST['submit'])) {
               $password = $_POST['new-pass'];
               $password = password_hash($password, PASSWORD_BCRYPT);
           } else {
-              die("Error: Invalid Password!");
+              echo "Error: Invalid Password!";
+              throw new customException("Invalid Pasword",1);
           }
       } else {
-          die("Error: Wrong Old Password or New Password doesn't match to the Confirm Password!"); 
-           insertLog("ERROR", 1, "Change Password Validation Error");
+          echo "Error: Wrong Old Password or New Password doesn't match to the Confirm Password!"; 
+           throw new customException("Change Password Validation Error",1);
         }
+    }catch(customException $e){
+        insertLog("ERROR",$e->errorCode(),$e->errorMessage());
+    }
 
 
     if($_POST['access'] == "") {

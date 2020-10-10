@@ -21,7 +21,8 @@ if(isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     if(empty($email)||empty($password)){
-        throw new customException("Fill all the fields");
+        $loginErrorMsg="Fill all the Fields";
+        throw new customException("EmptyField",1);
           }
     $sql = "SELECT * FROM users WHERE email = '$email'";
 
@@ -45,21 +46,18 @@ if(isset($_POST['login'])) {
             // Insert A Log for A Login Success
          insertLog("Success", 0, "Successful login");
         } else{
-            throw new customException("Invalid username and/or password! Please try again!");
-            insertLog("ERROR", 1, "Invalid Input Credentials During Login");
+            $loginErrorMsg="Invalid username and/or password! Please try again!";
+            throw new customException("Invalid Input Credentials During Login",1); 
         }
     } else {
-        throw new customException("Invalid username and/or password! Please try again!");
-        insertLog("ERROR", 1, "Invalid Input Credentials During Login");
+        $loginErrorMsg="Invalid username and/or password! Please try again!";
+        throw new customException("Invalid Input Credentials During Login",1); 
     }
     $con->close();
 }
 }catch(customException $e){
-    
-    $loginErrorMsg=$e->errorMessage();
-
     // Login Failure Error
-    insertLog("ERROR", 1, "Invalid Input Credentials During Login");
+    insertLog("ERROR", $e->errorCode(), $e->errorMessage());
 }
 
 
@@ -78,32 +76,31 @@ if(isset($_POST['register'])) {
     if(isFirstNameValid($_POST['firstName']) == 1) {
         $firstName = formValidate($_POST['firstName']);
     } else {
-        throw new customException("Error: Invalid First Name!");
-        insertLog("ERROR", 1, "First Name Input Validation Error");
+        echo "Error: Invalid First Name!";
+        throw new customException("First Name Input Validation Error",1);
     }
 
      //Last Name
     if(isLastNameValid($_POST['lastName']) == 1) {
         $lastName = formValidate($_POST['lastName']);
     } else {
-        throw new customException("Error: Invalid Last Name!");
-        insertLog("ERROR", 1, "Last Name Input Validation Error");
+        echo "Error: Invalid Last Name!";
+        throw new customException("Last Name Input Validation Error",1);
     }
 
     // Email
     if(isEmailValid($_POST['email']) == 1) {
         $email = formValidate($_POST['email']);
     } else {
-        throw new customException("Error: Invalid Email!");
-        insertLog("ERROR", 1, "Email Input Validation Error");
+        echo "Error: Invalid Email!";
+        throw new customException("Email Input Validation Error",1);
     }
 
     // Password
     if(isPasswordValid($_POST['password']) == 1) {
         $password = $_POST['password'];
     } else {
-        throw new customException("Error: Invalid Password!");
-        insertLog("ERROR", 1, "Password Input Validation Error");
+        throw new customException("Password Input Validation Error",1);
     }
 
     
@@ -118,7 +115,7 @@ if(isset($_POST['register'])) {
     $total = $user->num_rows;
 
     if($total > 0) {
-        throw new customException("Duplicate Email! Try Again");
+        throw new customException("Duplicate Email");
     } else {
         $insertSql = "INSERT INTO `users` (`firstName`,`lastName`, `email`,`password`,`access`) VALUES ('$firstName', '$lastName', '$email','$hash','user')";
    
@@ -146,7 +143,8 @@ if(isset($_POST['register'])) {
     $con->close();
 }
 }catch(customException $e){
-    echo $e->errorMessage();
+ 
+    insertLog("ERROR",$e->errorCode(), $e->errorMessage());
 }
 
 ?>
