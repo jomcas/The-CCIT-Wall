@@ -25,7 +25,7 @@ define("SUBJECT", "/^[\w,.!\-]{4,15}$/i"); // CERCEAS HANAPAN MO KO NG REGEX NA 
  * check mo tong link for anti cross site scripting para sa text area natin.
  * https://security.stackexchange.com/questions/225210/how-to-prevent-xss-when-inserting-untrusted-data-into-a-textarea
  */
-define("BODY", "^[\s\S\w\W]{,280}$"); // CERCEAS IKAW MAGISIP NG LIMITATION DITO BASTA MAY RANGE DAPAT TAPOS GAWAN MO NA DIN REGEX HEHEHEHE
+define("BODY", "/^[\s\S\w\W]{,280}$/"); // CERCEAS IKAW MAGISIP NG LIMITATION DITO BASTA MAY RANGE DAPAT TAPOS GAWAN MO NA DIN REGEX HEHEHEHE
 
 
 //^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{8,19}$ (At least * chars, 1 lowercase, uppercase, number and special character)

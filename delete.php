@@ -1,5 +1,8 @@
 <?php
 
+
+include "errorhandler/sql_logging.php";
+
 if(!isset($_SESSION)) {
     session_start();
 }
@@ -9,6 +12,10 @@ if(!isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
 }
 
 include_once "connections/connection.php";
+include_once "connections/connection.php";
+include "validation/validation.php";
+include "errorhandler/errorhandler.php";
+include "errorhandler/sql_logging.php";
 
 $con = connection();
 

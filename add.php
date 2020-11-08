@@ -4,8 +4,13 @@ if(!isset($_SESSION)) {
     session_start();
 }
 
+
 include_once "connections/connection.php";
+include "errorhandler/errorhandler.php";
+include "errorhandler/sql_logging.php";
 include "validation/validation.php";
+include "errorhandler/errorhandler.php";
+include "errorhandler/sql_logging.php";
 $con = connection();
 
 if(isset($_SESSION['Access']) && $_SESSION['Access'] == "admin") {
@@ -71,6 +76,7 @@ if(isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New User </title>
+    <link rel="stylesheet" href="css/addStyle.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -80,9 +86,9 @@ if(isset($_POST['submit'])) {
     <div class="container">
 
         <div class="register">
-           <h1 class="text-center"> CCIT Forum Admin </h1>
+           <h1 class="text-center"> <b>CCIT Forum Admin</b> </h1>
             <h3 class="text-center">Add New User </h1>
-            <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/"> Back to User's List. </a><br><br>
+            <a id="loginBtn" class="btn btn-dark float-right" href="/ccitforum/"> <b>Back to User's List </b></a><br><br>
             <div class="card">
                 <div class="card-body">
                     <form action="" method="post" onSubmit="return confirm('Do you really want to add this user?')">
@@ -100,7 +106,7 @@ if(isset($_POST['submit'])) {
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input id="pass" type="password" class="form-control" name="password"> <input type="checkbox" onclick="unhidePassword()" > Show Password </input>
+                            <input id="pass" type="password" class="form-control" name="password"> <input id = "passW" type="checkbox" onclick="unhidePassword()" > Show Password </input>
                         </div>
                         <div class="form-group">
                                 <label for="password">Access</label>
