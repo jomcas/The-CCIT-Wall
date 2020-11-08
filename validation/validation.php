@@ -15,7 +15,7 @@ define("NAME", "/^[a-z A-Z,.\-\ñ\Ñ]{3,16}$/i"); // No Special Characters. Acce
  *Reference: https://stackoverflow.com/questions/48345922/reference-password-validation
  */
 
-define("PASSWORD", "/^(?=\P{Ll}*\p{Ll})(?=\P{Lu}*\p{Lu})(?=\P{N}*\p{N})(?=[\p{L}\p{N}]*[^\p{L}\p{N}])[\s\S]{8,19}$/"); 
+define("PASSWORD", "/^(?![^a-zA-Z0-9])(?=\P{Ll}*\p{Ll})(?=\P{Lu}*\p{Lu})(?=\P{N}*\p{N})(?=[\p{L}\p{N}]*[^\p{L}\p{N}])[\s\S]{8,19}$/"); 
 
 
 define("SUBJECT", "/^[\w,.!\-]{4,15}$/i"); // CERCEAS HANAPAN MO KO NG REGEX NA 4-15 characters yung range, pede numbers, tapos bawal special characters except ? ! _ -
