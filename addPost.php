@@ -5,6 +5,9 @@ if(!isset($_SESSION)) {
 }
 
 include_once "connections/connection.php";
+include "errorhandler/errorhandler.php";
+include "errorhandler/sql_logging.php";
+include "validation/validation.php";
 
 $con = connection();
 
