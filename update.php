@@ -16,6 +16,9 @@ $id = $_GET['ID'];
 $sql = "SELECT * FROM users WHERE userID = '$id'";
 $users = $con->query($sql) or die($con->error);
 $row = $users->fetch_assoc();
+$firstN = $row['firstName'];
+$lastN = $row['lastName'];
+$eM = $row['email'];
 
 // Can access the page if it is an admin or it is the user's personal account!
 if((isset($_SESSION['Access']) && $_SESSION['Access'] == "admin" || $_SESSION['ID'] == $id)) {
@@ -31,39 +34,45 @@ if(isset($_POST['submit'])) {
     $lastName = "";
     $email = "";
     $password = '';
-
+    $cond = false;
    /// Validation
     //First Name
     try{
     if(isFirstNameValid($_POST['firstName']) == 1) {
         $firstName = formValidate($_POST['firstName']);
     } else {
+        $cond = true;
+         $firstN =$_POST['firstName'];
         echo "Error: Invalid First Name!";
-        throw new customException("First Name Input Validation Error",1);
+        insertLog("ERROR",1,"First Name Input Validation Error");
     }
 
      //Last Name
     if(isLastNameValid($_POST['lastName']) == 1) {
         $lastName = formValidate($_POST['lastName']);
     } else {
+        $cond = true;
+        $lastN =$_POST['lastName'];
         echo "Error: Invalid Last Name!";
-        throw new customException("Last Name Input Validation Error",1);
+        insertLog("ERROR",1,"Last Name Input Validation Error");
     }
 
     // Email
     if(isEmailValid($_POST['email']) == 1) {
         $email = formValidate($_POST['email']);
     } else {
+        $cond = true;
+        $eM = $_POST['email'];
         echo "Error: Invalid Email!";
-        throw new customException("Email Input Validation Error",1);
+        insertLog("ERROR",1,"Email Input Validation Error");
     }
 
-
+    if(!empty($_POST['old-pass'])){
       // Changing password
       $oldPassword = $_POST['old-pass'];
       $newPassword = $_POST['new-pass'];
       $confirmPassword = $_POST['confirm-new-pass'];
-    
+
       echo $confirmPassword;
 
       if(password_verify($oldPassword, $row['password']) && $newPassword == $confirmPassword) {
@@ -71,17 +80,23 @@ if(isset($_POST['submit'])) {
               $password = $_POST['new-pass'];
               $password = password_hash($password, PASSWORD_BCRYPT);
           } else {
+            $cond = true;
               echo "Error: Invalid Password!";
+              
               throw new customException("Invalid Pasword",1);
           }
       } else {
+        $cond = true;
+        $_POST['old-pass']=null;
           echo "Error: Wrong Old Password or New Password doesn't match to the Confirm Password!"; 
            throw new customException("Change Password Validation Error",1);
         }
+    }
     }catch(customException $e){
         insertLog("ERROR",$e->errorCode(),$e->errorMessage());
+       
     }
-
+    if($cond == false){
 
     if($_POST['access'] == "") {
         $access = "user";
@@ -89,8 +104,11 @@ if(isset($_POST['submit'])) {
         $access = $_POST['access'];
     }
     session_regenerate_id(true);// 02/10/2020
+    if(!empty($_POST['old-pass'])){
     $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `password` = '$password', `access` = '$access' WHERE `userID` = $id";
-
+    }else{
+        $sql = "UPDATE `users` SET `firstName` = '$firstName', `lastName` = '$lastName', `email` = '$email', `access` = '$access' WHERE `userID` = $id";     
+    }
     $con->query($sql) or die($con->error);
 
     $last_id = $con->insert_id;	
@@ -102,7 +120,7 @@ if(isset($_POST['submit'])) {
     } else {
         echo header("Location: accounts.php");
     }
-
+    }
 
   
 }
@@ -138,17 +156,17 @@ if(isset($_POST['submit'])) {
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
                                 <input type="name" class="form-control" name="firstName"
-                                    value="<?php echo $row['firstName']?>">
+                                    value="<?php echo $firstN;?>">
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
                                 <input type="name" class="form-control" name="lastName"
-                                    value="<?php echo $row['lastName']?>">
+                                    value="<?php echo $lastN?>">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" name="email"
-                                    value="<?php echo $row['email']?>">
+                                    value="<?php echo $eM ?>">
                             </div>
 
                             <!-- Edit this part that it doesnt retrieve the hashed password but just ask if they want to apply for new password -->
